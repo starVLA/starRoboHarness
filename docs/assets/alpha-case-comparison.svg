@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">StarRoboHarness development case comparison</title>
+  <desc id="desc">Three complete RoboDojo development cases comparing QwenPI v3, Astra plus QwenPI v3, and Astra Direct.</desc>
+  <rect width="1200" height="620" rx="28" fill="#f7f1e7"/>
+  <text x="64" y="72" font-family="Inter,Arial,sans-serif" font-size="32" font-weight="700" fill="#27231f">One complete development case · build_tower</text>
+  <text x="64" y="108" font-family="Inter,Arial,sans-serif" font-size="18" fill="#756b60">Same task family and reset identity; native RoboDojo score is shown on a 0–100 scale.</text>
+  <g font-family="Inter,Arial,sans-serif">
+    <rect x="64" y="150" width="334" height="382" rx="22" fill="#fffaf2" stroke="#e6d8c6"/>
+    <rect x="433" y="150" width="334" height="382" rx="22" fill="#fffaf2" stroke="#d7b782" stroke-width="3"/>
+    <rect x="802" y="150" width="334" height="382" rx="22" fill="#fffaf2" stroke="#e6d8c6"/>
+    <text x="92" y="202" font-size="21" font-weight="700" fill="#3c342d">QwenPI_v3</text>
+    <text x="461" y="202" font-size="21" font-weight="700" fill="#3c342d">Astra + QwenPI_v3</text>
+    <text x="830" y="202" font-size="21" font-weight="700" fill="#3c342d">Astra Direct</text>
+    <text x="92" y="250" font-size="17" fill="#756b60">Score</text><text x="92" y="300" font-size="48" font-weight="700" fill="#b56d42">10</text>
+    <text x="461" y="250" font-size="17" fill="#756b60">Score</text><text x="461" y="300" font-size="48" font-weight="700" fill="#b56d42">100</text>
+    <text x="830" y="250" font-size="17" fill="#756b60">Score</text><text x="830" y="300" font-size="48" font-weight="700" fill="#b56d42">0</text>
+    <text x="92" y="350" font-size="17" fill="#756b60">Native steps</text><text x="92" y="382" font-size="22" font-weight="600" fill="#27231f">1050 · timeout</text>
+    <text x="461" y="350" font-size="17" fill="#756b60">Native steps</text><text x="461" y="382" font-size="22" font-weight="600" fill="#27231f">761 · success</text>
+    <text x="830" y="350" font-size="17" fill="#756b60">Native steps</text><text x="830" y="382" font-size="22" font-weight="600" fill="#27231f">1050 · timeout</text>
+    <text x="92" y="430" font-size="17" fill="#756b60">Model calls</text><text x="92" y="462" font-size="22" font-weight="600" fill="#27231f">0</text>
+    <text x="461" y="430" font-size="17" fill="#756b60">Reported tokens</text><text x="461" y="462" font-size="22" font-weight="600" fill="#27231f">≈ 7.75M</text>
+    <text x="830" y="430" font-size="17" fill="#756b60">Reported tokens</text><text x="830" y="462" font-size="22" font-weight="600" fill="#27231f">≈ 30.22M</text>
+    <text x="92" y="505" font-size="15" fill="#8b7e71">valid terminal receipt</text>
+    <text x="461" y="505" font-size="15" fill="#8b7e71">valid terminal receipt</text>
+    <text x="830" y="505" font-size="15" fill="#8b7e71">valid terminal receipt</text>
+  </g>
+</svg>

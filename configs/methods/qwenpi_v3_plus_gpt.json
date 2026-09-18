@@ -1,0 +1,35 @@
+{
+  "schema": "unity_policy.method.v1",
+  "method_id": "qwenpi_v3_plus_gpt",
+  "implementation_variant": "compact_ephemeral_reviewer_v2",
+  "gpt_as_policy_full_agent_equivalent": false,
+  "policy": {
+    "adapter": "qwenpi_v3",
+    "action_space": "dual_arx_x5.abs_qpos.v1",
+    "prediction_horizon": 50,
+    "effective_inference_timesteps": 4,
+    "max_student_prefix": 15,
+    "native_execute_horizon": 16,
+    "unnorm_key": "arx_x5"
+  },
+  "reasoner": {
+    "adapter": "codex_cli",
+    "model": "gpt-6-astra",
+    "reasoning_effort": "xhigh",
+    "session": "ephemeral_per_decision",
+    "tools": [],
+    "context_version": "unity_policy.bounded.v2",
+    "previous_camera_views": 3,
+    "proposal_waypoints": 50,
+    "skill": "skills/robodojo-hybrid-policy/SKILL.md"
+  },
+  "gate": {
+    "policy": "observed_failure_or_misaligned_intent",
+    "correction_modes": ["eef"],
+    "max_correction_steps": 5,
+    "max_translation_m": 0.05,
+    "max_rotation_rad": 0.35,
+    "require_fresh_proposal": true,
+    "require_native_termination": true
+  }
+}

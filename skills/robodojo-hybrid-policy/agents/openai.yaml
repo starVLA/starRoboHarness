@@ -1,0 +1,7 @@
+interface:
+  display_name: "RoboDojo Hybrid Policy"
+  short_description: "Review and correct fresh RoboDojo policy proposals"
+  default_prompt: "Use $robodojo-hybrid-policy to run one authorized hybrid-policy RoboDojo episode."
+
+policy:
+  allow_implicit_invocation: true

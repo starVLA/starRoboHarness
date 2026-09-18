@@ -1,0 +1,20 @@
+{
+  "starvla_source": "../sim_platform/RoboDojo/XPolicyLab/policy/starVLA/source_starvla",
+  "starvla_base_vlm": "../starVLA/playground/Pretrained_models/Qwen3-VL-4B-Instruct",
+  "checkpoint": "../sim_platform/RoboDojo/StarVLA-Qwen3vl4b-PIv3-RoboDojo/checkpoints/steps_100000_pytorch_model.pt",
+  "checkpoint_sha256": "7144d490c40edceca31feeedb06434d795ed300b85eef0f2164efa4ed2c12d5f",
+  "starvla_normalization_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "starvla_norm_processor_sha256": "cc0feb7881dd4e8c1887eb05c3091ee10122ee3f150490c43370e361b98f99c7",
+  "starvla_policy_wrapper_sha256": "b5502ba1828faa1135f34ea27f216b551a69a6c8a2449c2032613679a2df6f32",
+  "robodojo_source": "../sim_platform/RoboDojo",
+  "upstream_panel": "src/hybrid_rollout/robodojo/eval_panels/robodojo_panel60_v1.json",
+  "policy_python": "../../miniforge3/envs/starVLA/bin/python",
+  "sim_python": "../../miniforge3/envs/RoboDojo/bin/python",
+  "codex": "../../.local/bin/codex",
+  "policy_gpu": 0,
+  "sim_gpu": 1,
+  "policy_port": 6230,
+  "sim_port": 19340,
+  "startup_timeout_seconds": 900,
+  "reasoner_timeout_seconds": 300
+}

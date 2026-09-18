@@ -1,0 +1,476 @@
+{
+  "schema": "unity_policy.panel.v1",
+  "benchmark": "RoboDojo",
+  "methods": [
+    "qwenpi_v3",
+    "gpt_direct",
+    "qwenpi_v3_plus_gpt"
+  ],
+  "model": "gpt-6-astra",
+  "effort": "xhigh",
+  "selection": "User-approved five tasks; first five upstream frozen cases per task",
+  "upstream_panel_sha256": "9641fa252856c5ffc07b269c9fef4fed7f5bbc91b45ea0e93fe2a39fa73944b7",
+  "cases": [
+    {
+      "case_id": "build_tower__standard__g0__l0",
+      "task": "build_tower",
+      "runtime_task": "build_tower",
+      "variant": "standard",
+      "replica_id": 6,
+      "rollout_index": 0,
+      "eval_seed": 0,
+      "layout_id": 0,
+      "reset_seed": 0,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/build_tower_0.json",
+        "sha256": "afcf896086392357a8826f84bebe4910dcb7a5f1b84e7be435e16e3d5c3607a4"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "build_tower__standard__g0__l1",
+      "task": "build_tower",
+      "runtime_task": "build_tower",
+      "variant": "standard",
+      "replica_id": 6,
+      "rollout_index": 1,
+      "eval_seed": 0,
+      "layout_id": 1,
+      "reset_seed": 1,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/build_tower_1.json",
+        "sha256": "c4c67f1c1c2abe8ae32d2686048e61eb6e4396c79025b30779091f14705db18c"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "build_tower__standard__g0__l2",
+      "task": "build_tower",
+      "runtime_task": "build_tower",
+      "variant": "standard",
+      "replica_id": 6,
+      "rollout_index": 2,
+      "eval_seed": 0,
+      "layout_id": 2,
+      "reset_seed": 2,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/build_tower_2.json",
+        "sha256": "8d6bff06259a8ae1dbaf982639c3febabccc9e681a34e18acc368647deced338"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "build_tower__standard__g0__l3",
+      "task": "build_tower",
+      "runtime_task": "build_tower",
+      "variant": "standard",
+      "replica_id": 6,
+      "rollout_index": 3,
+      "eval_seed": 0,
+      "layout_id": 3,
+      "reset_seed": 3,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/build_tower_3.json",
+        "sha256": "2baf81cf370a985354a616bc965938e8d3d685ebd11c1372e79a22276ac95db2"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "build_tower__standard__g0__l4",
+      "task": "build_tower",
+      "runtime_task": "build_tower",
+      "variant": "standard",
+      "replica_id": 6,
+      "rollout_index": 4,
+      "eval_seed": 0,
+      "layout_id": 4,
+      "reset_seed": 4,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/build_tower_4.json",
+        "sha256": "bd298ba59bcdc04051c63251c3b0fefda7eb5536a30a220bcd9a8c8dd8fa6b61"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "put_bottles_into_dustbin__standard__g0__l0",
+      "task": "put_bottles_into_dustbin",
+      "runtime_task": "put_bottles_into_dustbin",
+      "variant": "standard",
+      "replica_id": 9,
+      "rollout_index": 0,
+      "eval_seed": 0,
+      "layout_id": 0,
+      "reset_seed": 0,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_0.json",
+        "sha256": "3c2168f460d48dde2d72d55429f1af7e850725b642dfcb8c8d5e31ed2ec25537"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "put_bottles_into_dustbin__standard__g0__l1",
+      "task": "put_bottles_into_dustbin",
+      "runtime_task": "put_bottles_into_dustbin",
+      "variant": "standard",
+      "replica_id": 9,
+      "rollout_index": 1,
+      "eval_seed": 0,
+      "layout_id": 1,
+      "reset_seed": 1,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_1.json",
+        "sha256": "baf037612b844efdcf660d2f6f6ea064fb288e064a9d2d944c4c75ef0396968b"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "put_bottles_into_dustbin__standard__g0__l2",
+      "task": "put_bottles_into_dustbin",
+      "runtime_task": "put_bottles_into_dustbin",
+      "variant": "standard",
+      "replica_id": 9,
+      "rollout_index": 2,
+      "eval_seed": 0,
+      "layout_id": 2,
+      "reset_seed": 2,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_2.json",
+        "sha256": "7110decf67ccb6d77942719bf2f79d567c5d1d080413d2c713d3b41e691c11fe"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "put_bottles_into_dustbin__standard__g0__l3",
+      "task": "put_bottles_into_dustbin",
+      "runtime_task": "put_bottles_into_dustbin",
+      "variant": "standard",
+      "replica_id": 9,
+      "rollout_index": 3,
+      "eval_seed": 0,
+      "layout_id": 3,
+      "reset_seed": 3,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_3.json",
+        "sha256": "659a6fc1bffc692e8e61d07544d1c5145a3c17e8d8e75fc4af543b1a9fba41f5"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "put_bottles_into_dustbin__standard__g0__l4",
+      "task": "put_bottles_into_dustbin",
+      "runtime_task": "put_bottles_into_dustbin",
+      "variant": "standard",
+      "replica_id": 9,
+      "rollout_index": 4,
+      "eval_seed": 0,
+      "layout_id": 4,
+      "reset_seed": 4,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/put_bottles_into_dustbin_4.json",
+        "sha256": "79fdd9de9ace106330d3a338380beb9fde98ee37ad87e7ee76a0b08684f2c695"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "pack_objects_into_box__standard__g0__l0",
+      "task": "pack_objects_into_box",
+      "runtime_task": "pack_objects_into_box",
+      "variant": "standard",
+      "replica_id": 4,
+      "rollout_index": 0,
+      "eval_seed": 0,
+      "layout_id": 0,
+      "reset_seed": 0,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/pack_objects_into_box_0.json",
+        "sha256": "d529ff309408abf0270efa996832d3e70dcc9e070c2e90c9824fba60f396d2b2"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "pack_objects_into_box__standard__g0__l1",
+      "task": "pack_objects_into_box",
+      "runtime_task": "pack_objects_into_box",
+      "variant": "standard",
+      "replica_id": 4,
+      "rollout_index": 1,
+      "eval_seed": 0,
+      "layout_id": 1,
+      "reset_seed": 1,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/pack_objects_into_box_1.json",
+        "sha256": "4166accd9642b354d1dbe9d9dd4a7b37fbf52f2e749485bc38f66ca554a797a6"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "pack_objects_into_box__standard__g0__l2",
+      "task": "pack_objects_into_box",
+      "runtime_task": "pack_objects_into_box",
+      "variant": "standard",
+      "replica_id": 4,
+      "rollout_index": 2,
+      "eval_seed": 0,
+      "layout_id": 2,
+      "reset_seed": 2,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/pack_objects_into_box_2.json",
+        "sha256": "3809779f3c4dbf1440cda55d8e6db00a46fae3cb46b3772f842b0c1d3508b26f"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "pack_objects_into_box__random__g0__l0",
+      "task": "pack_objects_into_box",
+      "runtime_task": "pack_objects_into_box_random",
+      "variant": "random",
+      "replica_id": 4,
+      "rollout_index": 3,
+      "eval_seed": 0,
+      "layout_id": 0,
+      "reset_seed": 0,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/pack_objects_into_box_random_0.json",
+        "sha256": "f51946657574f10da34a6760128dd5701ec948a3ce638b6168f5ceb6478166c4"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "pack_objects_into_box__random__g0__l1",
+      "task": "pack_objects_into_box",
+      "runtime_task": "pack_objects_into_box_random",
+      "variant": "random",
+      "replica_id": 4,
+      "rollout_index": 4,
+      "eval_seed": 0,
+      "layout_id": 1,
+      "reset_seed": 1,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/pack_objects_into_box_random_1.json",
+        "sha256": "afd36f32cca5734104502a24c2085bf415315da85aad4b81800d9eb5bf0f019f"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "classify_objects__standard__g0__l0",
+      "task": "classify_objects",
+      "runtime_task": "classify_objects",
+      "variant": "standard",
+      "replica_id": 5,
+      "rollout_index": 0,
+      "eval_seed": 0,
+      "layout_id": 0,
+      "reset_seed": 0,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/classify_objects_0.json",
+        "sha256": "5ceb9e18e6d8490a7db85dd001462d63265c297ea6fad0d7438364deb2de3ece"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "classify_objects__standard__g0__l1",
+      "task": "classify_objects",
+      "runtime_task": "classify_objects",
+      "variant": "standard",
+      "replica_id": 5,
+      "rollout_index": 1,
+      "eval_seed": 0,
+      "layout_id": 1,
+      "reset_seed": 1,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/classify_objects_1.json",
+        "sha256": "013d7141ffc9865d7cccf650301f642e6b83b3eb59f78cf5b1d0caf47158e17a"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "classify_objects__standard__g0__l2",
+      "task": "classify_objects",
+      "runtime_task": "classify_objects",
+      "variant": "standard",
+      "replica_id": 5,
+      "rollout_index": 2,
+      "eval_seed": 0,
+      "layout_id": 2,
+      "reset_seed": 2,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/classify_objects_2.json",
+        "sha256": "6b3a30251bd92a465ffdc82436e14dde84879906eeab3b0e8944865b9eef38f7"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "classify_objects__standard__g0__l3",
+      "task": "classify_objects",
+      "runtime_task": "classify_objects",
+      "variant": "standard",
+      "replica_id": 5,
+      "rollout_index": 3,
+      "eval_seed": 0,
+      "layout_id": 3,
+      "reset_seed": 3,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/classify_objects_3.json",
+        "sha256": "d11ac5e14ab8fd9c8eee0c1cc827d7827b86b3cec4b97e496ef384470f171ff5"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "classify_objects__standard__g0__l4",
+      "task": "classify_objects",
+      "runtime_task": "classify_objects",
+      "variant": "standard",
+      "replica_id": 5,
+      "rollout_index": 4,
+      "eval_seed": 0,
+      "layout_id": 4,
+      "reset_seed": 4,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/classify_objects_4.json",
+        "sha256": "49c99299e632b60fde270fb69ce6421739d6e517971654ae5566ef213a754aa3"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "organize_table__standard__g0__l0",
+      "task": "organize_table",
+      "runtime_task": "organize_table",
+      "variant": "standard",
+      "replica_id": 0,
+      "rollout_index": 0,
+      "eval_seed": 0,
+      "layout_id": 0,
+      "reset_seed": 0,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/organize_table_0.json",
+        "sha256": "e55e5cffef73b1967ad26dc0c7c8933ce05e68f329450ae0ac933abf386fa5ba"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "organize_table__standard__g0__l1",
+      "task": "organize_table",
+      "runtime_task": "organize_table",
+      "variant": "standard",
+      "replica_id": 0,
+      "rollout_index": 1,
+      "eval_seed": 0,
+      "layout_id": 1,
+      "reset_seed": 1,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/organize_table_1.json",
+        "sha256": "cc44fde5d0d4461123b2ec469d6bb02f47a621ee2f6b2bc81269213b82b2342d"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "organize_table__standard__g0__l2",
+      "task": "organize_table",
+      "runtime_task": "organize_table",
+      "variant": "standard",
+      "replica_id": 0,
+      "rollout_index": 2,
+      "eval_seed": 0,
+      "layout_id": 2,
+      "reset_seed": 2,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/organize_table_2.json",
+        "sha256": "2b995768c4dfada0ac4c313fa20e467e645f6ff700e81fe05ef513d61ed0e343"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "organize_table__standard__g0__l3",
+      "task": "organize_table",
+      "runtime_task": "organize_table",
+      "variant": "standard",
+      "replica_id": 0,
+      "rollout_index": 3,
+      "eval_seed": 0,
+      "layout_id": 3,
+      "reset_seed": 3,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/organize_table_3.json",
+        "sha256": "12e2492a1f688b800774543f2e9805bc1e4b7a0950c1037f59e7dfe073e43711"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "organize_table__standard__g0__l4",
+      "task": "organize_table",
+      "runtime_task": "organize_table",
+      "variant": "standard",
+      "replica_id": 0,
+      "rollout_index": 4,
+      "eval_seed": 0,
+      "layout_id": 4,
+      "reset_seed": 4,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/organize_table_4.json",
+        "sha256": "82764ab142f4748fe581b4993460743ae59ba08c7d6aea3770d4bf61844dc20a"
+      },
+      "native_support_trajectories": []
+    }
+  ],
+  "student_native_horizon": 16,
+  "hybrid_student_horizon": [
+    1,
+    15
+  ],
+  "eef_horizon": [
+    1,
+    5
+  ],
+  "policy_seed": 0,
+  "smoke": "build_tower standard layout 5, excluded from this panel"
+}

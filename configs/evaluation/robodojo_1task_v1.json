@@ -1,0 +1,80 @@
+{
+  "schema": "unity_policy.panel.v1",
+  "benchmark": "RoboDojo",
+  "methods": [
+    "qwenpi_v3",
+    "gpt_direct",
+    "qwenpi_v3_plus_gpt"
+  ],
+  "model": "gpt-6-astra",
+  "effort": "xhigh",
+  "selection": "classify_objects_by_language only; first three upstream frozen cases",
+  "upstream_panel_sha256": "9641fa252856c5ffc07b269c9fef4fed7f5bbc91b45ea0e93fe2a39fa73944b7",
+  "cases": [
+    {
+      "case_id": "classify_objects_by_language__standard__g0__l0",
+      "task": "classify_objects_by_language",
+      "runtime_task": "classify_objects_by_language",
+      "variant": "standard",
+      "replica_id": 1,
+      "rollout_index": 0,
+      "eval_seed": 0,
+      "layout_id": 0,
+      "reset_seed": 0,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_0.json",
+        "sha256": "eb7bc205a8e5f3acad8fdada3bf7a26b8e11fc39d7944f434aa4989356044eb2"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "classify_objects_by_language__standard__g0__l1",
+      "task": "classify_objects_by_language",
+      "runtime_task": "classify_objects_by_language",
+      "variant": "standard",
+      "replica_id": 1,
+      "rollout_index": 1,
+      "eval_seed": 0,
+      "layout_id": 1,
+      "reset_seed": 1,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_1.json",
+        "sha256": "a8dfaa02ceec29c527c2ef4d98beb5862c31cc8ffe01bc978ea63987f696500b"
+      },
+      "native_support_trajectories": []
+    },
+    {
+      "case_id": "classify_objects_by_language__standard__g0__l2",
+      "task": "classify_objects_by_language",
+      "runtime_task": "classify_objects_by_language",
+      "variant": "standard",
+      "replica_id": 1,
+      "rollout_index": 2,
+      "eval_seed": 0,
+      "layout_id": 2,
+      "reset_seed": 2,
+      "simulator_initial_seed": 0,
+      "policy_rng_seed": 0,
+      "layout": {
+        "path": "Assets/Eval_Layout/RoboDojo/arx_x5/0/classify_objects_by_language_2.json",
+        "sha256": "224acdad14e9087fe1c488537960aa4edc63d19167e2a41fef124e745fc1217c"
+      },
+      "native_support_trajectories": []
+    }
+  ],
+  "student_native_horizon": 16,
+  "hybrid_student_horizon": [
+    1,
+    15
+  ],
+  "eef_horizon": [
+    1,
+    5
+  ],
+  "policy_seed": 0,
+  "smoke": "build_tower standard layout 5, excluded from this panel"
+}
