@@ -2,9 +2,8 @@
 
 Detailed rollout audits, raw receipts, infrastructure identities, token
 accounting, and failure investigations are intentionally kept out of the
-public repository. For historical continuity, the complete evidence bundle is
-currently maintained in the private `JackAILab/UnityPolicy` Hugging Face
-dataset; that storage name is not the public package identity.
+public repository. Keep the complete evidence bundle in an access-controlled
+artifact store; it is not part of the public package identity.
 
 The public repository contains only reproducible contracts, redacted summaries,
 and the latest publication-safe iteration record. Do not add cluster names,
