@@ -8,7 +8,15 @@ dist/
 *.egg-info/
 exps/
 artifacts/
+local/
+.env
+.env.*
+!.env.example
 *.mp4
 *.npz
 *.pt
 *.safetensors
+
+datasets/
+!website/dist/
+!website/dist/**

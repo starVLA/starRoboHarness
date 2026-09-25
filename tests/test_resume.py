@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from starroboharness.evaluation import panel_digest
-from starroboharness.rollout.campaign import resume_outcomes
+from starharness.evaluation import panel_digest
+from starharness.rollout.campaign import resume_outcomes
 
 
 def test_resume_preserves_receipts_and_refuses_uncertain_execution(tmp_path):

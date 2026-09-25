@@ -1,6 +1,6 @@
 import pytest
 
-from starroboharness.rollout.campaign import verify_policy_runtime
+from starharness.rollout.campaign import verify_policy_runtime
 
 
 class FakeCluster:

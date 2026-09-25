@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from starroboharness.rollout.student import QwenPIStudent
+from starharness.rollout.student import QwenPIStudent
 
 
 class Connection:

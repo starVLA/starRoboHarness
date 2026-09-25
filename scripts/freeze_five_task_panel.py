@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from starroboharness.evaluation import METHODS, panel_digest, validate_panel
+from starharness.evaluation import METHODS, panel_digest, validate_panel
 
 
 def main():
@@ -27,7 +27,7 @@ def main():
         if c["task"] == task and c["rollout_index"] < 5
     ]
     panel = {
-        "schema": "starroboharness.panel.v1",
+        "schema": "starharness.panel.v1",
         "benchmark": "RoboDojo",
         "methods": list(METHODS),
         "model": "gpt-6-astra",

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
-  <title id="title">StarRoboHarness development case comparison</title>
+  <title id="title">starRoboHarness development case comparison</title>
   <desc id="desc">Three complete RoboDojo development cases comparing QwenPI v3, Astra plus QwenPI v3, and Astra Direct.</desc>
   <rect width="1200" height="620" rx="28" fill="#f7f1e7"/>
   <text x="64" y="72" font-family="Inter,Arial,sans-serif" font-size="32" font-weight="700" fill="#27231f">One complete development case · build_tower</text>

@@ -7,10 +7,10 @@ from pathlib import Path
 
 import numpy as np
 
-from starroboharness.adapters.qwenpi_v3 import QwenPIv3Adapter
-from starroboharness.contracts import Observation
-from starroboharness.gate import validate_decision
-from starroboharness.trace import ChainedJsonlTrace
+from starharness.adapters.qwenpi_v3 import QwenPIv3Adapter
+from starharness.contracts import Observation
+from starharness.gate import validate_decision
+from starharness.trace import ChainedJsonlTrace
 
 
 def main() -> None:
@@ -58,13 +58,13 @@ def main() -> None:
         },
     }
     assert validate_decision(decision, request_id="request-0", step_id=0) == "student"
-    with tempfile.TemporaryDirectory(prefix="starroboharness-smoke-") as directory:
+    with tempfile.TemporaryDirectory(prefix="unitypolicy-smoke-") as directory:
         trace = ChainedJsonlTrace(Path(directory) / "trace.jsonl")
         trace.append("observation", {"observation_id": observation.observation_id})
         trace.append("proposal", {"proposal_id": proposal.proposal_id})
         trace.append("decision", decision)
         assert len(trace.read_all()) == 3
-    print("StarRoboHarness smoke passed: QwenPI_v3 contract, evidence gate, and chained trace")
+    print("starRoboHarness smoke passed: QwenPI_v3 contract, evidence gate, and chained trace")
 
 
 if __name__ == "__main__":

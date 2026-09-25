@@ -5,7 +5,7 @@ import subprocess
 import sys
 import time
 
-from starroboharness.rollout.supervisor import supervise
+from starharness.rollout.supervisor import supervise
 
 
 def test_exit_failure_is_preserved_without_retry(tmp_path):
@@ -19,7 +19,7 @@ def test_exit_failure_is_preserved_without_retry(tmp_path):
 def test_signal_is_forwarded_and_exit_recorded(tmp_path):
     root = tmp_path / "run"
     parent = subprocess.Popen([
-        sys.executable, "-m", "starroboharness.rollout.supervisor", "--state-dir", str(root),
+        sys.executable, "-m", "starharness.rollout.supervisor", "--state-dir", str(root),
         "--", sys.executable, "-c", "import time; print('ready', flush=True); time.sleep(60)",
     ])
     try:

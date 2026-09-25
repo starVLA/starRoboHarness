@@ -2,8 +2,8 @@ import copy
 
 import pytest
 
-from starroboharness.contracts import ContractError
-from starroboharness.evaluation import METHODS, panel_digest, summarize, validate_panel
+from starharness.contracts import ContractError
+from starharness.evaluation import METHODS, panel_digest, summarize, validate_panel
 
 
 def panel():
@@ -110,7 +110,7 @@ def test_invalid_attempt_cost_is_visible_without_affecting_success_rate():
 
 
 def test_call_units_are_not_averaged_together():
-    from starroboharness.evaluation import efficiency_summary
+    from starharness.evaluation import efficiency_summary
 
     report = efficiency_summary([
         {"metrics": {"reasoner_calls": 10, "reasoner_seconds": 100}},

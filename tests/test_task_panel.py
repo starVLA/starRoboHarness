@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from scripts.freeze_task_panel import build_panel
-from starroboharness.evaluation import summarize
+from starharness.evaluation import summarize
 
 
 def upstream():
@@ -36,3 +36,13 @@ def test_task_panel_selects_requested_methods_and_repetitions():
 def test_task_panel_fails_when_repetitions_are_not_available():
     with pytest.raises(ValueError, match="has only"):
         build_panel(upstream(), ["build_tower"], ["qwenpi_v3"], 99)
+
+
+def test_task_panel_can_select_remaining_cases_without_replaying_first_case():
+    source = upstream()
+    task = "build_tower"
+    expected = [case["case_id"] for case in source["cases"] if case["task"] == task]
+    panel = build_panel(source, [task], ["qwenpi_v3"], 2, start_index=1)
+    assert [case["case_id"] for case in panel["cases"]] == expected[1:3]
+    with pytest.raises(ValueError, match="start index"):
+        build_panel(source, [task], ["qwenpi_v3"], 1, start_index=-1)

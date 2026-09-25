@@ -1,7 +1,7 @@
 import pytest
 
 pytest.importorskip("hybrid_rollout")
-from starroboharness.rollout.campaign import check_simulator_startup, close_connections
+from starharness.rollout.campaign import check_simulator_startup, close_connections
 
 
 def test_ready_does_not_override_broken_graphics():

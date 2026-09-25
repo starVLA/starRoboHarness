@@ -9,7 +9,7 @@ Read this reference only when the student policy is QwenPI_v3.
 - State is discretized into instruction tokens by QwenPI_v3.
 - Output: 50×14 absolute joint-position actions.
 - Normalization: the serving layer must apply the checkpoint's `arx_x5` q99
-  statistics before StarRoboHarness sees executable actions.
+  statistics before starRoboHarness sees executable actions.
 - Current native deployment executes 16 actions before replanning. A hybrid
   reviewer may choose a shorter 1–15 step student prefix.
 - The XPolicyLab adapter accepts `num_ddim_steps=10`, but the current

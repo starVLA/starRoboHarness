@@ -5,7 +5,23 @@ Thanks for the contribution: https://github.com/anonymous-report-421/GPT-as-Poli
 
 """
 
-CONTEXT_VERSION = 'v3'
+CONTEXT_VERSION = 'v4_category_ledger'
+
+CATEGORY_COMPLETION_POLICY = {
+    'ledger_fields': ['category', 'destination', 'instances', 'verified_complete'],
+    'priority': (
+        'Maintain an instance ledger. Finish and verify every visible instance in one '
+        'category before switching when feasible; only mark category_complete after all '
+        'instances are visibly in the correct destination, settled, and the grippers '
+        'are clear. If the horizon is short, continue the category nearest to completion '
+        'instead of spreading small corrections across all categories.'
+    ),
+    'evidence': (
+        'A grab, lift, or closed gripper command is not completion. Verify post-release '
+        'object motion and containment from a fresh observation; revoke completion if '
+        'a later observation shows a slip or wrong destination.'
+    ),
+}
 
 # Public task semantics only: no layout truth, score queries or action script.
 TASK_NOTES = {
@@ -26,4 +42,7 @@ def task_context(task):
     base = task.removesuffix('_random')
     if base not in TASK_NOTES:
         return {}
-    return dict(process=TASK_NOTES[base], requires_arm_return=base != 'make_kong')
+    result = dict(process=TASK_NOTES[base], requires_arm_return=base != 'make_kong')
+    if base in {'classify_objects_by_language', 'classify_objects'}:
+        result['category_completion'] = CATEGORY_COMPLETION_POLICY
+    return result

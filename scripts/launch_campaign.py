@@ -1,4 +1,4 @@
-"""Validate and launch one immutable StarRoboHarness campaign in detached tmux."""
+"""Validate and launch one immutable starRoboHarness campaign in detached tmux."""
 
 import argparse
 import hashlib
@@ -8,8 +8,8 @@ import shlex
 import subprocess
 from pathlib import Path
 
-from starroboharness.evaluation import panel_digest, validate_panel
-from starroboharness.rollout.campaign import validate_baseline_cadence, validate_reasoner_backend
+from starharness.evaluation import panel_digest, validate_panel
+from starharness.rollout.campaign import validate_baseline_cadence, validate_reasoner_backend
 
 
 def file_sha256(path):
@@ -66,7 +66,7 @@ def runner_command(launch):
     campaign = [
         str(launch["python"]),
         "-m",
-        "starroboharness.rollout.campaign",
+        "starharness.rollout.campaign",
         "--config",
         str(launch["config_path"]),
         "--panel",
@@ -82,7 +82,7 @@ def runner_command(launch):
         "PYTHONUNBUFFERED=1",
         str(launch["python"]),
         "-m",
-        "starroboharness.rollout.supervisor",
+        "starharness.rollout.supervisor",
         "--state-dir",
         str(launch["supervisor"]),
         "--",
@@ -107,10 +107,21 @@ def probe_codex(launch):
         "-c", 'model_reasoning_effort="xhigh"', "-c", "features.apps=false",
         "-c", "features.plugins=false", "-c", "features.multi_agent=false",
         "-c", 'web_search="disabled"',
-        "Reply with exactly STARROBOHARNESS_PROVIDER_READY",
+        "Reply with exactly STARHARNESS_PROVIDER_READY",
     ]
-    probe = subprocess.run(command, capture_output=True, text=True, timeout=240)
-    if probe.returncode:
+    attempts = int(launch["config"].get("codex_probe_attempts", 3))
+    if attempts < 1 or attempts > 5:
+        raise ValueError("codex_probe_attempts must be between 1 and 5")
+    probe = None
+    for attempt in range(1, attempts + 1):
+        probe = subprocess.run(command, capture_output=True, text=True, timeout=240)
+        if probe.returncode == 0:
+            break
+        if attempt < attempts:
+            import time
+
+            time.sleep(min(2 ** (attempt - 1), 4))
+    if probe is None or probe.returncode:
         raise RuntimeError(f"Codex provider preflight failed for {provider}")
     messages, usage = [], None
     for line in probe.stdout.splitlines():
@@ -124,7 +135,7 @@ def probe_codex(launch):
                 messages.append(item.get("text"))
         elif event.get("type") == "turn.completed":
             usage = event.get("usage")
-    if messages[-1:] != ["STARROBOHARNESS_PROVIDER_READY"] or usage is None:
+    if messages[-1:] != ["STARHARNESS_PROVIDER_READY"] or usage is None:
         raise RuntimeError(f"Codex provider preflight returned unexpected output for {provider}")
     return {"model": "gpt-6-astra", "effort": "xhigh", "provider": provider,
             "response": messages[-1], "usage": usage}
@@ -142,14 +153,14 @@ def main():
     args = parser.parse_args()
     launch = validate_launch(args.config, args.panel, args.output, args.supervisor)
     if args.resume_from:
-        from starroboharness.rollout.campaign import resume_outcomes
+        from starharness.rollout.campaign import resume_outcomes
 
         launch["resume_from"] = args.resume_from.resolve(strict=True)
         resume_outcomes(launch["resume_from"], launch["panel"])
     environment = dict(os.environ)
     environment["PYTHONPATH"] = os.pathsep.join(str(path) for path in launch["pythonpath"])
     probe = subprocess.run(
-        [str(launch["python"]), "-m", "starroboharness.rollout.runtime_preflight"],
+        [str(launch["python"]), "-m", "starharness.rollout.runtime_preflight"],
         env=environment, capture_output=True, text=True, timeout=90,
     )
     if probe.returncode:
@@ -172,8 +183,12 @@ def main():
     if args.check_only:
         print(json.dumps(dict(status="ready", **summary), indent=2))
         return
+    # tmux target names use prefix matching by default.  Exact matching is
+    # important here: a launcher session such as ``unitypolicy-v8-launch``
+    # must not make the requested ``unitypolicy-v8`` session look occupied.
+    tmux_target = "=" + args.tmux_session
     existing = subprocess.run(
-        ["tmux", "has-session", "-t", args.tmux_session], capture_output=True
+        ["tmux", "has-session", "-t", tmux_target], capture_output=True
     )
     if existing.returncode == 0:
         raise FileExistsError(f"tmux session already exists: {args.tmux_session}")
@@ -195,7 +210,7 @@ def main():
         "PYTHONPATH=" + os.pathsep.join(str(path) for path in launch["pythonpath"]),
         str(launch["python"]),
         "-m",
-        "starroboharness.rollout.monitor",
+        "starharness.rollout.monitor",
         str(launch["output"]),
         "--supervisor",
         str(launch["supervisor"]),
@@ -205,7 +220,7 @@ def main():
             "tmux",
             "new-window",
             "-t",
-            args.tmux_session,
+            tmux_target,
             "-n",
             "dashboard",
             shlex.join(monitor),
@@ -213,10 +228,10 @@ def main():
         check=True,
     )
     subprocess.run(
-        ["tmux", "select-window", "-t", f"{args.tmux_session}:dashboard"], check=True
+        ["tmux", "select-window", "-t", f"{tmux_target}:dashboard"], check=True
     )
     print(json.dumps(dict(status="launched", tmux=args.tmux_session, **summary), indent=2))
-    print(f"tmux attach -t {shlex.quote(args.tmux_session)}")
+    print(f"tmux attach -t {shlex.quote(tmux_target)}")
 
 
 if __name__ == "__main__":

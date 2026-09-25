@@ -2,7 +2,8 @@ import hashlib
 import json
 
 from scripts.build_resume_index import build_resume_index
-from scripts.provider_failure import classify_provider_failure
+from starharness.rollout.campaign import may_continue_after_invalid
+from starharness.rollout.provider_failure import classify_provider_failure
 
 
 def write_json(path, value):
@@ -28,6 +29,30 @@ def test_non_provider_runtime_error_does_not_trigger_recovery(tmp_path):
     assert classify_provider_failure(tmp_path)["recoverable_provider_failure"] is False
 
 
+def test_provider_failure_isolated_only_when_explicitly_enabled(tmp_path):
+    write_json(
+        tmp_path / "hybrid" / "case" / "error.json",
+        {"type": "RuntimeError", "message": "You've hit your usage limit."},
+    )
+    row = {"complete": False, "valid_for_success_rate": False}
+    assert not may_continue_after_invalid({}, tmp_path, row)
+    assert may_continue_after_invalid(
+        {"continue_after_provider_failure": True}, tmp_path, row
+    )
+
+
+def test_provider_failure_never_overrides_terminal_or_valid_row(tmp_path):
+    write_json(
+        tmp_path / "hybrid" / "case" / "error.json",
+        {"type": "RuntimeError", "message": "You've hit your usage limit."},
+    )
+    assert not may_continue_after_invalid(
+        {"continue_after_provider_failure": True},
+        tmp_path,
+        {"complete": True, "valid_for_success_rate": False},
+    )
+
+
 def test_resume_index_keeps_only_verified_terminal_receipts(tmp_path):
     panel = {"benchmark": "RoboDojo", "methods": ["qwenpi_v3"], "cases": []}
     source = tmp_path / "source"
@@ -50,7 +75,17 @@ def test_resume_index_keeps_only_verified_terminal_receipts(tmp_path):
     accepted = build_resume_index([source], output)
     assert [row["case_id"] for row in accepted] == ["valid"]
     assert accepted[0]["source_run"] == str(source.resolve())
-    assert json.loads((output / "lineage.json").read_text())["excluded_nonterminal_attempts"] == 1
+    lineage = json.loads((output / "lineage.json").read_text())
+    assert lineage["excluded_nonterminal_attempts"] == 1
+    assert lineage["excluded_nonterminal_rows"] == [
+        {
+            "source": str(source.resolve()),
+            "method": "qwenpi_v3",
+            "case_id": "interrupted",
+            "termination": None,
+            "error_type": None,
+        }
+    ]
 
 
 def test_resume_index_recovers_terminal_receipt_and_records_orphaned_control(tmp_path):

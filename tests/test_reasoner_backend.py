@@ -1,6 +1,6 @@
 import pytest
 
-from starroboharness.rollout.campaign import validate_reasoner_backend
+from starharness.rollout.campaign import validate_reasoner_backend
 
 
 @pytest.mark.parametrize("backend", ["persistent_full_agent_v1", "compact"])

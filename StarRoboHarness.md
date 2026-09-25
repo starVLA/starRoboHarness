@@ -1,10 +1,10 @@
-# StarRoboHarness
+# starRoboHarness
 
 > Connect frontier multimodal reasoners to arbitrary robot policies through a
 > small, auditable, efficient, and benchmark-neutral control layer.
 
-StarRoboHarness is not a unified model and does not replace a policy. It is an open
-execution, orchestration, and evaluation harness for reasoning-driven robotics:
+starRoboHarness is not a unified model and does not replace a policy. It is an open
+execution, orchestration, and evaluation harness for Robot-as-Policy systems:
 policies propose, reasoners supervise or act, skills mediate reusable abilities,
 and robots/environments provide observations and real execution outcomes.
 
@@ -26,7 +26,7 @@ Two mature implementation lines motivate the project:
 Published numbers from these projects use different evaluation protocols. The
 GPT-as-Policy report uses a 10-task, five-case-per-task aligned panel; StarVLA's
 published QwenPI_v3 table uses 42 tasks and 50 episodes per task. They are not
-directly comparable. StarRoboHarness first establishes same-task, same-layout,
+directly comparable. starRoboHarness first establishes same-task, same-layout,
 same-seed paired evaluation.
 
 ## Goals
@@ -95,7 +95,7 @@ outside the core process.
 - Continuous gripper opening with `0=closed`, `1=open`.
 - Native deployment predicts 50 actions and executes 16 before replanning.
 
-StarRoboHarness accepts a maximum 15-step student prefix so every execution returns
+starRoboHarness accepts a maximum 15-step student prefix so every execution returns
 to a fresh observation/proposal boundary. Local corrections use at most five
 steps, 5 cm translation, and 0.35 rad rotation per arm.
 
@@ -186,9 +186,9 @@ locally reproduced values remain separate.
 
 ## Collaboration boundary
 
-The `GPT_Pai` workstream owns GPT-as-Policy/π0.5/direct reproduction. The
-`QWenPI_v3` workstream owns the StarVLA checkpoint and native RoboDojo baseline.
-StarRoboHarness consumes versioned manifests from both and owns common contracts,
+The upstream reproduction workstream owns GPT-as-Policy/π0.5/direct evaluation.
+The policy workstream owns the StarVLA checkpoint and native RoboDojo baseline.
+starRoboHarness consumes versioned manifests from both and owns common contracts,
 paired evaluation, hybrid improvements, efficiency research, and contributor
 experience.
 

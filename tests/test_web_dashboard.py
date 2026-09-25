@@ -2,8 +2,8 @@ import importlib.util
 import json
 from pathlib import Path
 
-MODULE_PATH = Path(__file__).resolve().parents[1] / "tools" / "dashboard" / "monitor_dashboard.py"
-SPEC = importlib.util.spec_from_file_location("starroboharness_web_dashboard", MODULE_PATH)
+MODULE_PATH = Path(__file__).resolve().parents[1] / "UI" / "monitor_dashboard.py"
+SPEC = importlib.util.spec_from_file_location("starharness_web_dashboard", MODULE_PATH)
 dashboard = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(dashboard)
 

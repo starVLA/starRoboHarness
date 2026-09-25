@@ -5,7 +5,7 @@ systems faster, cheaper, and practical without weakening evaluation fidelity or
 robot safety. It is intentionally a roadmap rather than a claim that the
 proposed methods already work.
 
-StarRoboHarness's first priority is a correct and reproducible three-method
+starRoboHarness's first priority is a correct and reproducible three-method
 evaluation. Efficiency research starts only after the activation gate below is
 satisfied.
 
@@ -73,7 +73,7 @@ simulator can be paused for far longer than the robot is physically controlled.
 
 The upstream GPT-as-Policy report also presents physical duration separately
 from model-response latency and describes latency as an unresolved limitation.
-Its selected runs and StarRoboHarness's current compact reviewer use different
+Its selected runs and starRoboHarness's current compact reviewer use different
 implementations, contexts, and evaluation histories; their token totals must
 not be treated as an apples-to-apples efficiency comparison.
 
@@ -241,7 +241,7 @@ The following targets are research hypotheses, not promised results:
 5. **Reuse:** show that a compiled skill reduces repeated-episode calls and
    uncached tokens without held-out leakage.
 6. **Generalize:** reproduce gains with at least two policy backends and two
-   reasoner backends before claiming a StarRoboHarness-level result.
+   reasoner backends before claiming a starRoboHarness-level result.
 
 Because a reasoner response can be longer than an entire physical episode,
 near-real-time execution may require pre-planning, reuse, or a fast local

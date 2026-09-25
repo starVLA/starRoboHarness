@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="starRoboHarness：连接多模态推理模型与机器人策略的可审计控制层。" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>starRoboHarness · Auditable reasoning for robot policies</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+    <header class="topbar">
+      <a class="wordmark" href="#top" aria-label="starRoboHarness 首页">
+        <span class="wordmark-mark" aria-hidden="true">S</span>
+        <span>starRoboHarness</span>
+      </a>
+      <nav class="topbar-nav" aria-label="页首导航">
+        <a href="#method">方法</a>
+        <a href="#evidence">证据</a>
+        <a href="#evaluation">评测</a>
+        <a href="#roadmap">路线图</a>
+        <a class="repo-link" href="https://github.com/starVLA/starRoboHarness" target="_blank" rel="noopener noreferrer" aria-label="在 GitHub 查看仓库">Repository <span aria-hidden="true">↗</span></a>
+      </nav>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav">菜单</button>
+    </header>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="移动端导航" hidden>
+      <a href="#method">方法</a><a href="#evidence">证据</a><a href="#evaluation">评测</a><a href="#roadmap">路线图</a>
+    </nav>
+
+    <main id="main">
+      <article class="report" id="top">
+        <header class="hero page-column">
+          <h1><span>starRoboHarness</span></h1>
+          <div class="authors" aria-label="作者">
+            <span>Jiehui Huang</span>
+            <span>Haowen Yan</span>
+            <span>Yuxin Chen</span>
+            <span>Jinhui Ye</span>
+            <span>Zixuan Wang</span>
+            <span>Jiaya Jia</span>
+          </div>
+          <a class="hero-repository" href="https://github.com/starVLA/starRoboHarness" target="_blank" rel="noopener noreferrer" aria-label="在 GitHub 查看 starRoboHarness 仓库">
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M8 0C3.58 0 0 3.64 0 8.13c0 3.59 2.29 6.63 5.47 7.71.4.08.55-.18.55-.39 0-.19-.01-.83-.01-1.51-2.01.38-2.53-.5-2.69-.96-.09-.23-.48-.96-.82-1.15-.28-.15-.68-.53-.01-.54.63-.01 1.08.59 1.23.83.72 1.23 1.87.88 2.33.67.07-.53.28-.88.51-1.08-1.78-.21-3.64-.91-3.64-4.02 0-.89.31-1.62.82-2.19-.08-.21-.36-1.04.08-2.16 0 0 .67-.22 2.2.84A7.48 7.48 0 0 1 8 3.91c.68 0 1.36.09 2 .27 1.53-1.06 2.2-.84 2.2-.84.44 1.12.16 1.95.08 2.16.51.57.82 1.3.82 2.19 0 3.12-1.87 3.81-3.65 4.02.29.25.54.74.54 1.5 0 1.08-.01 1.95-.01 2.22 0 .22.15.47.55.39A8.14 8.14 0 0 0 16 8.13C16 3.64 12.42 0 8 0Z" />
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <p class="dek">
+            starRoboHarness 通过一套小型、可审计且与基准无关的控制协议，将前沿多模态推理模型连接到任意机器人策略。
+          </p>
+          <blockquote class="tldr">
+            <span class="tldr-label">TL;DR</span>
+            <p>
+              starRoboHarness 不替换已有策略，而是在<strong>每一个新鲜观测边界</strong>上审查候选动作；只有可见失败或下一意图偏离时，才允许有限、可追踪的纠正。
+            </p>
+            <div class="tldr-actions">
+              <a class="button primary" href="#method">查看方法</a>
+              <a class="button secondary" href="#evaluation">阅读评测边界</a>
+            </div>
+          </blockquote>
+        </header>
+
+        <nav class="section-nav page-column" aria-label="文章章节">
+          <a href="#overview">概览</a>
+          <a href="#method">控制协议</a>
+          <a href="#architecture">架构</a>
+          <a href="#evidence">当前证据</a>
+          <a href="#evaluation">评测计划</a>
+          <a href="#roadmap">路线图</a>
+        </nav>
+
+        <section class="section page-column" id="overview">
+          <div class="section-kicker">01 · OVERVIEW</div>
+          <h2>把强推理放在最需要它的时刻</h2>
+          <p class="lead">
+            机器人策略擅长快速、连续地生成动作；多模态推理模型擅长理解失败、检查意图和规划恢复。starRoboHarness 让两者各司其职，并把质量、延迟、调用次数与计算成本放在同一张账本上。
+          </p>
+          <div class="principles-grid">
+            <article><span>01</span><h3>Protocol first</h3><p>协议稳定，模型可替换。核心只理解观测、提案、决策、执行结果与追踪。</p></article>
+            <article><span>02</span><h3>Evidence gated</h3><p>不确定性本身不能触发接管。每一次纠正都必须绑定可观察证据。</p></article>
+            <article><span>03</span><h3>Bounded control</h3><p>学生策略最多执行 15 步，本地纠正最多 5 步，随后回到新鲜观测。</p></article>
+            <article><span>04</span><h3>Trace everything</h3><p>提案、决策、实际 ACK、原生成绩、版本、成本和延迟都进入追加式追踪。</p></article>
+          </div>
+        </section>
+
+        <section class="section page-column" id="method">
+          <div class="section-kicker">02 · CONTROL PROTOCOL</div>
+          <h2>学生负责流畅执行，推理器负责选择性纠偏</h2>
+          <p>
+            每个控制循环从同一份任务指令和精确观测开始。QwenPI_v3 先提交候选动作段；证据门检查上一段执行结果与下一段可见意图，随后决定沿用学生提案或执行一个受限 EEF 修正。
+          </p>
+
+          <div class="protocol" aria-label="starRoboHarness 控制流程">
+            <div class="protocol-node input-node"><span>INPUT</span><strong>Task + observation</strong><small>3 RGB views · 14D state · instruction</small></div>
+            <div class="protocol-arrow" aria-hidden="true">→</div>
+            <div class="protocol-node"><span>STUDENT</span><strong>Policy proposal</strong><small>QwenPI_v3 · 50 × 14 actions</small></div>
+            <div class="protocol-arrow" aria-hidden="true">→</div>
+            <div class="protocol-node accent-node"><span>REVIEW</span><strong>Evidence gate</strong><small>Outcome · intent · safety · freshness</small></div>
+            <div class="protocol-branch" aria-hidden="true"><i></i><b>OR</b><i></i></div>
+            <div class="protocol-outcomes">
+              <div class="protocol-node"><span>PASS</span><strong>Execute proposal</strong><small>1–15 student steps</small></div>
+              <div class="protocol-node teal-node"><span>CORRECT</span><strong>Bounded EEF fix</strong><small>1–5 reasoner steps</small></div>
+            </div>
+            <div class="protocol-return"><span aria-hidden="true">↺</span> Fresh observation boundary</div>
+          </div>
+
+          <div class="spec-row" aria-label="纠正规格">
+            <div><strong>≤ 5</strong><span>correction steps</span></div>
+            <div><strong>5 cm</strong><span>translation / arm</span></div>
+            <div><strong>0.35 rad</strong><span>rotation / arm</span></div>
+            <div><strong>0 / 1</strong><span>gripper closed / open</span></div>
+          </div>
+        </section>
+
+        <section class="wide-section architecture-section" id="architecture">
+          <div class="wide-inner">
+            <div class="section-kicker">03 · ARCHITECTURE</div>
+            <div class="section-heading-row">
+              <h2>替换接口，而不是重写系统</h2>
+              <p>StarVLA、OpenPI、Isaac Sim 和模型服务都停留在核心进程之外。</p>
+            </div>
+            <div class="architecture-map">
+              <div class="arch-lane">
+                <span>CONTEXT</span><strong>ContextCompiler</strong><small>公开任务语义、进度记忆、关键帧、剩余预算</small>
+              </div>
+              <div class="arch-connector"><span>observation</span></div>
+              <div class="arch-lane focus">
+                <span>CORE</span><strong>Evidence Gate + SafetyGuard</strong><small>新鲜度、证据、几何、单位、动作空间、请求身份</small>
+              </div>
+              <div class="arch-connector"><span>decision</span></div>
+              <div class="arch-lane">
+                <span>EXECUTION</span><strong>EnvironmentAdapter</strong><small>唯一允许改变环境状态的组件</small>
+              </div>
+            </div>
+            <div class="adapter-strip">
+              <span>ReasonerAdapter</span><span>PolicyAdapter</span><span>EnvironmentAdapter</span><span>Append-only trace</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section page-column" id="evidence">
+          <div class="section-kicker">04 · CURRENT EVIDENCE</div>
+          <h2>一个开发案例，作为信号，而不是结论</h2>
+          <p>
+            在一个保留、非正式面板的 <code>build_tower/layout5</code> 案例中，混合方法达到原生成功；该结果不构成成功率、因果收益或正式三方法比较。
+          </p>
+          <div class="disclosure">
+            <span>Scope note</span>
+            当前正式五任务评测尚未开始。下方仅展示单次开发轨迹中的原生结果，所有比较都必须在同任务、同布局、同随机种子的配对协议下重新验证。
+          </div>
+
+          <div class="evidence-chart" role="img" aria-label="单次开发案例分数：QwenPI_v3 10，Astra 加 QwenPI 100，Astra Direct 0">
+            <div class="chart-axis"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+            <div class="chart-row">
+              <div class="chart-label"><strong>QwenPI_v3</strong><small>native policy</small></div>
+              <div class="bar-track"><i style="--value:10%"></i></div><b>10</b>
+            </div>
+            <div class="chart-row is-primary">
+              <div class="chart-label"><strong>Astra + QwenPI</strong><small>hybrid policy</small></div>
+              <div class="bar-track"><i style="--value:100%"></i></div><b>100</b>
+            </div>
+            <div class="chart-row">
+              <div class="chart-label"><strong>Astra Direct</strong><small>direct reasoner</small></div>
+              <div class="bar-track"><i style="--value:0%"></i></div><b>0</b>
+            </div>
+          </div>
+          <p class="figure-caption"><b>Figure 2.</b> Off-panel development trace. Scores are native environment outcomes from one retained case, not aggregate benchmark results.</p>
+
+          <div class="video-grid">
+            <article class="video-card">
+              <div class="media-placeholder video-placeholder" role="img" aria-label="混合策略视频占位">
+                <div class="placeholder-grid" aria-hidden="true"></div>
+                <div class="placeholder-content"><span class="play" aria-hidden="true">▶</span><strong>Hybrid recovery</strong><small>视频占位 · MP4 / WebM</small></div>
+              </div>
+              <div class="video-copy"><span class="policy-tag hybrid">Astra + QwenPI</span><h3>Failure recovery</h3><p>展示可见失败、有限纠正以及控制权返回学生策略的完整过程。</p></div>
+            </article>
+            <article class="video-card">
+              <div class="media-placeholder video-placeholder" role="img" aria-label="直接控制视频占位">
+                <div class="placeholder-grid" aria-hidden="true"></div>
+                <div class="placeholder-content"><span class="play" aria-hidden="true">▶</span><strong>Direct control</strong><small>视频占位 · MP4 / WebM</small></div>
+              </div>
+              <div class="video-copy"><span class="policy-tag direct">Astra Direct</span><h3>Reasoner-only rollout</h3><p>展示推理器直接生成双臂 EEF 目标时的执行轨迹与失败边界。</p></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section page-column" id="evaluation">
+          <div class="section-kicker">05 · EVALUATION</div>
+          <h2>所有提升都必须与成本一起报告</h2>
+          <p class="lead">starRoboHarness 首先建立同任务、同布局、同随机种子的配对评测，再扩展到完整 RoboDojo 协议。</p>
+          <div class="metric-switch" role="group" aria-label="评测面板指标">
+            <button type="button" aria-pressed="true" data-metric="quality">质量指标</button>
+            <button type="button" aria-pressed="false" data-metric="efficiency">效率指标</button>
+          </div>
+          <div class="metric-panel" data-panel="quality">
+            <div class="metric-card"><span>PRIMARY</span><strong>Native success</strong><p>环境原生成功判定，不用模型自报成功替代。</p></div>
+            <div class="metric-card"><span>PAIRED</span><strong>Win / tie / loss</strong><p>对齐任务、布局与随机种子的逐案例比较。</p></div>
+            <div class="metric-card"><span>SAFETY</span><strong>False takeover</strong><p>没有充分证据却发生干预的比例。</p></div>
+            <div class="metric-card"><span>RECOVERY</span><strong>Failure recovery</strong><p>观测到失败后恢复任务进度的能力。</p></div>
+          </div>
+          <div class="metric-panel" data-panel="efficiency" hidden>
+            <div class="metric-card"><span>MODEL</span><strong>Calls + tokens</strong><p>总调用、输入/输出 token 与缓存命中。</p></div>
+            <div class="metric-card"><span>LATENCY</span><strong>p50 / p95</strong><p>推理决策与学生策略的端到端延迟。</p></div>
+            <div class="metric-card"><span>CONTROL</span><strong>Correction ratio</strong><p>实际执行步中来自推理器纠正的占比。</p></div>
+            <div class="metric-card"><span>COMPUTE</span><strong>GPU-hours</strong><p>墙钟时间、GPU 使用与基础设施失败分开报告。</p></div>
+          </div>
+
+          <div class="evaluation-table-wrap">
+            <table class="evaluation-table">
+              <thead><tr><th>Stage</th><th>Scope</th><th>Purpose</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><b>Contract smoke</b></td><td>1 case</td><td>验证动作与运行时契约</td><td><span class="status done">Implemented</span></td></tr>
+                <tr><td><b>Paired development</b></td><td>Matched cases</td><td>调试上下文与恢复策略</td><td><span class="status active">In development</span></td></tr>
+                <tr><td><b>Frozen held-out panel</b></td><td>5 tasks × 5 cases × 3 methods</td><td>75 个固定 episode 的正式比较</td><td><span class="status pending">Not started</span></td></tr>
+                <tr><td><b>Full RoboDojo</b></td><td>42 tasks</td><td>适配器稳定后的完整协议</td><td><span class="status pending">Planned</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="wide-section gallery-section" aria-labelledby="gallery-heading">
+          <div class="wide-inner">
+            <div class="section-heading-row">
+              <div><div class="section-kicker">TASK GALLERY</div><h2 id="gallery-heading">任务与观测视图</h2></div>
+              <p>图片区域按固定比例预留，后续可直接接入 RoboDojo 任务截图或三相机观测。</p>
+            </div>
+            <div class="gallery-grid">
+              <div class="media-placeholder task-placeholder"><div class="placeholder-grid"></div><div class="placeholder-content"><span>01</span><strong>Build tower</strong><small>任务图片占位</small></div></div>
+              <div class="media-placeholder task-placeholder"><div class="placeholder-grid"></div><div class="placeholder-content"><span>02</span><strong>Classify objects</strong><small>任务图片占位</small></div></div>
+              <div class="media-placeholder task-placeholder"><div class="placeholder-grid"></div><div class="placeholder-content"><span>03</span><strong>Pack objects</strong><small>任务图片占位</small></div></div>
+              <div class="media-placeholder task-placeholder"><div class="placeholder-grid"></div><div class="placeholder-content"><span>04</span><strong>Organize table</strong><small>任务图片占位</small></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section page-column" id="roadmap">
+          <div class="section-kicker">06 · ROADMAP</div>
+          <h2>从可信基线走向可迁移控制层</h2>
+          <div class="roadmap">
+            <article class="complete"><span>M0</span><div><h3>Reproduction</h3><p>冻结 GPT-as-Policy 与 QwenPI_v3 的清单和协议边界。</p></div></article>
+            <article class="complete"><span>M1</span><div><h3>Core</h3><p>建立 contracts、gate、trace、fake runtime 与一致性测试。</p></div></article>
+            <article class="current"><span>M2</span><div><h3>Native QwenPI_v3</h3><p>证明推理与动作路径和 StarVLA 原生部署一致。</p></div></article>
+            <article><span>M3–M5</span><div><h3>Hybrid · quality · efficiency</h3><p>完成混合冒烟、上下文/恢复消融，并降低调用、token、延迟与成本。</p></div></article>
+            <article><span>M6</span><div><h3>Generalization</h3><p>加入非 VLA 策略与第二个环境，不向核心包泄漏平台常量。</p></div></article>
+          </div>
+        </section>
+
+        <section class="closing page-column">
+          <p class="closing-kicker">THE PROJECT SUCCEEDS WHEN</p>
+          <h2>每一次干预都有证据，每一个提升都经得起配对评测。</h2>
+          <p>新的策略只需少量适配器代码，而每个结果都明确说明延迟、计算成本与证据边界。</p>
+          <div class="closing-links">
+            <a href="https://github.com/starVLA/starRoboHarness#readme" target="_blank" rel="noopener noreferrer">Read the README <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/starVLA/starRoboHarness/blob/main/StarRoboHarness.md" target="_blank" rel="noopener noreferrer">Project vision <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/starVLA/starRoboHarness/blob/main/docs/architecture.md" target="_blank" rel="noopener noreferrer">Architecture <span aria-hidden="true">↗</span></a>
+          </div>
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      <span>starRoboHarness · MIT License</span>
+      <span>Images and videos intentionally left blank.</span>
+    </footer>
+  </body>
+</html>

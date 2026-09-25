@@ -3,7 +3,7 @@
 import argparse
 import json
 
-from starroboharness.reasoners import CodexCLIReasoner
+from starharness.reasoners import CodexCLIReasoner
 
 
 def main():

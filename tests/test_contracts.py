@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from starroboharness.contracts import ContractError, Observation, Proposal
+from starharness.contracts import ContractError, Observation, Proposal
 
 
 def observation(identifier="episode:0"):

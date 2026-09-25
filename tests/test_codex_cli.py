@@ -3,7 +3,7 @@ import subprocess
 
 import pytest
 
-from starroboharness.reasoners import CodexCLIReasoner, ReasonerError
+from starharness.reasoners import CodexCLIReasoner, ReasonerError
 
 
 class FakeProcess:

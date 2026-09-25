@@ -16,7 +16,7 @@ def main():
     source = Path(__file__).resolve().parents[1]
     snapshot = Path(config["remote_source"])
     snapshot.mkdir(parents=True, exist_ok=False)
-    for name in ("src", "scripts", "configs"):
+    for name in ("src", "scripts", "configs", "skills"):
         shutil.copytree(
             source / name, snapshot / name, ignore=shutil.ignore_patterns("__pycache__", "*.pyc")
         )

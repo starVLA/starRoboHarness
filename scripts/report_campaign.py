@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from starroboharness.evaluation import summarize
+from starharness.evaluation import summarize
 
 
 def cell(metric):

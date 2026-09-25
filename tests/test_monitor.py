@@ -1,7 +1,9 @@
 import json
+import subprocess
+import sys
 from pathlib import Path
 
-from starroboharness.rollout.monitor import Reader, cell, render
+from starharness.rollout.monitor import Reader, cell, process_matches_root, render
 
 
 def test_monitor_retains_last_good_json_on_partial_write(tmp_path):
@@ -12,6 +14,50 @@ def test_monitor_retains_last_good_json_on_partial_write(tmp_path):
     path.write_text('{"step":')
     assert reader.read(path)["step"] == 12
     assert reader.warnings == [str(path)]
+
+
+def test_monitor_keeps_enriched_progress_during_native_ack_write(tmp_path):
+    path = tmp_path / "progress.json"
+    path.write_text(json.dumps({
+        "step_id": 15,
+        "reasoner_calls": 1,
+        "usage": {"input_tokens": 500},
+    }))
+    reader = Reader()
+    assert reader.read(path)["reasoner_calls"] == 1
+
+    path.write_text(json.dumps({
+        "episode_id": "episode",
+        "step_id": 20,
+        "student_steps": 20,
+        "predictions": 2,
+    }))
+    progress = reader.read(path)
+
+    assert progress["step_id"] == 20
+    assert progress["predictions"] == 2
+    assert progress["reasoner_calls"] == 1
+    assert progress["usage"] == {"input_tokens": 500}
+
+
+def test_monitor_accepts_shared_filesystem_alias_for_live_output(tmp_path):
+    real = tmp_path / "real-output"
+    real.mkdir()
+    alias = tmp_path / "output-alias"
+    alias.symlink_to(real, target_is_directory=True)
+    process = subprocess.Popen([
+        sys.executable,
+        "-c",
+        "import time; time.sleep(30)",
+        "--output",
+        str(alias),
+    ])
+    try:
+        ticks = Path(f"/proc/{process.pid}/stat").read_text().rsplit(")", 1)[1].split()[19]
+        assert process_matches_root(process.pid, real.resolve(), ticks)
+    finally:
+        process.terminate()
+        process.wait(timeout=5)
 
 
 def test_pending_panel_does_not_display_zero_success(tmp_path):

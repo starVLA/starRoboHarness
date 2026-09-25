@@ -2,7 +2,7 @@ import shutil
 
 import pytest
 
-from starroboharness.rollout.freeze_dependency import freeze, git
+from starharness.rollout.freeze_dependency import freeze, git
 
 
 def test_snapshot_keeps_commit_and_dirty_code_without_modifying_source(tmp_path):

@@ -1,13 +1,13 @@
-# StarRoboHarness UI development guide
+# starRoboHarness UI development guide
 
 ## Purpose and safety boundary
 
-StarRoboHarness UI is a read-only working surface for RoboDojo evaluation runs. It
+starRoboHarness UI is a read-only working surface for RoboDojo evaluation runs. It
 may read result JSON, public reasoning records, logs, camera frames, and videos.
 It must not start or stop evaluation jobs, edit campaign outputs, acknowledge a
 robot action, or reinterpret an infrastructure error as a benchmark failure.
 
-The repository source lives in `tools/dashboard/`. The current production deployment remains
+The repository source lives in `UI/`. The current production deployment remains
 separate at:
 
 ```text
@@ -21,17 +21,17 @@ after review.
 ## Architecture
 
 ```text
-StarRoboHarness-compatible campaign output (read only)
+starRoboHarness-compatible campaign output (read only)
         |
         v
-tools/dashboard/monitor_dashboard.py
+UI/monitor_dashboard.py
   - aggregates panel, outcomes, comparison, progress, usage, and errors
   - groups progress, public decisions, errors, and media by RoboDojo task
-  - atomically writes tools/dashboard/state.json every three seconds
+  - atomically writes UI/state.json every three seconds
   - serves dashboard assets and read-only media
         |
         v
-tools/dashboard/dashboard.html
+UI/dashboard.html
   - fetches state.json every three seconds
   - keeps the selected task's metrics, camera frames, timeline, and log stable
 ```
@@ -45,10 +45,10 @@ feature materially benefits from a framework.
 
 | File | Responsibility |
 | --- | --- |
-| `tools/dashboard/dashboard.html` | Structure, warm neutral visual system, responsive layout, and client rendering |
-| `tools/dashboard/monitor_dashboard.py` | Stable read-only data contract, aggregation, media routing, and HTTP server |
-| `tools/dashboard/run-dev.sh` | Development launch on an isolated port |
-| `tools/dashboard/state.json` | Generated state; never commit it |
+| `UI/dashboard.html` | Structure, warm neutral visual system, responsive layout, and client rendering |
+| `UI/monitor_dashboard.py` | Stable read-only data contract, aggregation, media routing, and HTTP server |
+| `UI/run-dev.sh` | Development launch on an isolated port |
+| `UI/state.json` | Generated state; never commit it |
 
 The runtime `state.json` has these top-level fields:
 
@@ -70,7 +70,7 @@ supported run formats provide them.
 From the repository root:
 
 ```bash
-./tools/dashboard/run-dev.sh runs/formal-four-v17-native
+./UI/run-dev.sh runs/formal-four-v17-native
 ```
 
 Open:
@@ -82,7 +82,7 @@ http://127.0.0.1:8766/dashboard.html
 To use another port:
 
 ```bash
-PORT=8767 ./tools/dashboard/run-dev.sh runs/campaign
+PORT=8767 ./UI/run-dev.sh runs/campaign
 ```
 
 The page reloads data automatically, but HTML/CSS/JavaScript source changes
@@ -91,8 +91,8 @@ require a browser refresh. Stop the development process with `Ctrl-C`.
 Before committing:
 
 ```bash
-python3 -m py_compile tools/dashboard/monitor_dashboard.py
-bash -n tools/dashboard/run-dev.sh
+python3 -m py_compile UI/monitor_dashboard.py
+bash -n UI/run-dev.sh
 git diff --check
 ```
 
@@ -182,8 +182,8 @@ restart or modify the evaluation runner when deploying UI changes.
 At minimum, deploy:
 
 ```text
-tools/dashboard/dashboard.html
-tools/dashboard/monitor_dashboard.py
+UI/dashboard.html
+UI/monitor_dashboard.py
 ```
 
 Do not deploy or commit generated `state.json`, Python cache files, local logs,

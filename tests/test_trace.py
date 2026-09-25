@@ -2,8 +2,8 @@ import json
 
 import pytest
 
-from starroboharness.contracts import ContractError
-from starroboharness.trace import ChainedJsonlTrace
+from starharness.contracts import ContractError
+from starharness.trace import ChainedJsonlTrace
 
 
 def test_trace_round_trip_and_resume(tmp_path):

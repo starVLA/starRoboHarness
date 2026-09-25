@@ -1,6 +1,6 @@
 # Development environments
 
-StarRoboHarness separates the lightweight controller from the simulator and policy
+starRoboHarness separates the lightweight controller from the simulator and policy
 workers. The public repository documents interfaces only; site-specific
 cluster names, mounts, credentials, and launch addresses belong in a private
 operator runbook.
@@ -11,7 +11,7 @@ Keep these roles distinct:
 
 - RoboDojo/Isaac simulation;
 - StarVLA or OpenPI policy inference;
-- the StarRoboHarness controller, tests, and evidence collector.
+- the starRoboHarness controller, tests, and evidence collector.
 
 Every evaluation receives a unique run ID, output directory, port allocation,
 and explicit policy/simulator identity. A transport or physics error is an

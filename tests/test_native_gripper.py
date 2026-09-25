@@ -1,6 +1,6 @@
 import numpy as np
 
-from starroboharness.adapters.qwenpi_v3 import QwenPIv3Adapter
+from starharness.adapters.qwenpi_v3 import QwenPIv3Adapter
 
 
 def test_explicit_native_gripper_clipping_preserves_joints_and_raw_response():

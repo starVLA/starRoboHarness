@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from starroboharness.adapters.qwenpi_v3 import QwenPIv3Adapter
-from starroboharness.contracts import ContractError, Observation
+from starharness.adapters.qwenpi_v3 import QwenPIv3Adapter
+from starharness.contracts import ContractError, Observation
 
 
 def observation():

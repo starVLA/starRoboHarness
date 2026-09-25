@@ -61,8 +61,8 @@ def test_launch_validation_and_command_keep_evidence_paths_explicit(tmp_path):
     config, panel, output = fixture(tmp_path)
     launch = validate_launch(config, panel, output, tmp_path / "supervisor")
     command = runner_command(launch)
-    assert "starroboharness.rollout.supervisor" in command
-    assert "starroboharness.rollout.campaign" in command
+    assert "starharness.rollout.supervisor" in command
+    assert "starharness.rollout.campaign" in command
     assert str(output) in command
 
 
@@ -108,7 +108,7 @@ def test_provider_probe_pins_model_effort_and_provider(tmp_path, monkeypatch):
             return type("Result", (), {"returncode": 0})()
         stdout = "\n".join((
             json.dumps({"type": "item.completed", "item": {
-                "type": "agent_message", "text": "STARROBOHARNESS_PROVIDER_READY"}}),
+                "type": "agent_message", "text": "STARHARNESS_PROVIDER_READY"}}),
             json.dumps({"type": "turn.completed", "usage": {"input_tokens": 1}}),
         ))
         return type("Result", (), {"returncode": 0, "stdout": stdout})()

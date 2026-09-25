@@ -1,10 +1,10 @@
 # Third-party notices
 
-StarRoboHarness is an independent project. Its initial control contracts were
+starRoboHarness is an independent project. Its initial control contracts were
 informed by the following open-source projects:
 
 - [GPT-as-Policy](https://github.com/anonymous-report-421/GPT-as-Policy), MIT.
-  StarRoboHarness reimplements the general proposal-review and bounded-correction
+  starRoboHarness reimplements the general proposal-review and bounded-correction
   interfaces; it does not vendor the rollout scheduler, authentication code,
   simulator integration, reports, or experiment artifacts.
   The experimental live runner imports the separately installed upstream
@@ -12,9 +12,9 @@ informed by the following open-source projects:
   task context. Users must obtain that upstream runtime separately.
   The optional persistent backend also imports upstream's app-server transport,
   dynamic-tool schemas, image packet builder, and RoboDojo execution/gate/IK
-  clients. StarRoboHarness supplies policy identity, QwenPI adaptation, scheduling,
+  clients. starRoboHarness supplies policy identity, QwenPI adaptation, scheduling,
   and its persistent-agent progress budgets; these imports are not vendored.
-- [starVLA](https://github.com/starVLA/starVLA), MIT. StarRoboHarness documents and
+- [starVLA](https://github.com/starVLA/starVLA), MIT. starRoboHarness documents and
   validates the public QwenPI_v3 inference contract but does not redistribute
   model code or checkpoints.
 - [RoboDojo](https://github.com/RoboDojo-Benchmark/RoboDojo). Simulator, task,

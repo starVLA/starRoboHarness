@@ -2,8 +2,8 @@ import json
 
 import pytest
 
-from starroboharness.evaluation import METHODS
-from starroboharness.rollout.campaign import finish_campaign
+from starharness.evaluation import METHODS
+from starharness.rollout.campaign import finish_campaign
 
 
 def rows():

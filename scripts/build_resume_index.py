@@ -7,7 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from starroboharness.evaluation import panel_digest
+from starharness.evaluation import panel_digest
 
 
 def build_resume_index(sources: list[Path], output: Path) -> list[dict]:
@@ -19,6 +19,7 @@ def build_resume_index(sources: list[Path], output: Path) -> list[dict]:
     digest = panel_digest(panel)
     accepted: dict[tuple[str, str], dict] = {}
     excluded_rows = 0
+    excluded_nonterminal_rows = []
     orphaned_controller_attempts = []
     for source in sources:
         candidate_panel = json.loads((source / "panel.json").read_text())
@@ -37,6 +38,15 @@ def build_resume_index(sources: list[Path], output: Path) -> list[dict]:
                     and native.get("valid_for_success_rate")
                 ):
                     excluded_rows += 1
+                    excluded_nonterminal_rows.append(
+                        {
+                            "source": str(source.resolve()),
+                            "method": row["method"],
+                            "case_id": row["case_id"],
+                            "termination": row.get("termination"),
+                            "error_type": row.get("error_type"),
+                        }
+                    )
                     continue
                 steps = native.get("native_control_steps")
                 limit = native.get("native_step_limit")
@@ -81,11 +91,12 @@ def build_resume_index(sources: list[Path], output: Path) -> list[dict]:
     (output / "panel.json").write_text(json.dumps(panel, indent=2) + "\n")
     (output / "outcomes.json").write_text(json.dumps(rows, indent=2) + "\n")
     lineage = {
-        "schema": "starroboharness.resume_index.v1",
+        "schema": "starharness.resume_index.v1",
         "panel_sha256": digest,
         "sources": [str(path.resolve()) for path in sources],
         "accepted": len(rows),
         "excluded_nonterminal_attempts": excluded_rows + len(orphaned_controller_attempts),
+        "excluded_nonterminal_rows": excluded_nonterminal_rows,
         "orphaned_controller_attempts": orphaned_controller_attempts,
     }
     (output / "lineage.json").write_text(json.dumps(lineage, indent=2) + "\n")

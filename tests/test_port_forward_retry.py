@@ -1,8 +1,10 @@
 import json
+import subprocess
+from types import SimpleNamespace
 
 import pytest
 
-from starroboharness.rollout import campaign
+from starharness.rollout import campaign
 
 
 class FakeProcess:
@@ -80,3 +82,64 @@ def test_port_forward_exhaustion_is_an_infrastructure_timeout(tmp_path, monkeypa
 
     assert len(processes) == 2
     assert all(process.terminated for process in processes)
+
+
+def test_remote_read_uses_bounded_python_tail_for_live_logs(monkeypatch):
+    calls = []
+
+    def run(command, **kwargs):
+        calls.append((command, kwargs))
+        return SimpleNamespace(returncode=0, stdout='{"event":"ready"}')
+
+    monkeypatch.setattr(campaign.subprocess, "run", run)
+    remote = campaign.Cluster(
+        {
+            "context": "test",
+            "namespace": "test",
+            "remote_python": "/runtime/bin/python",
+        }
+    )
+
+    assert remote.read(
+        "worker", "/runs/case/service.log", max_bytes=1048576
+    ) == '{"event":"ready"}'
+    shell_command = calls[0][0][-1]
+    assert "/runtime/bin/python" in shell_command
+    assert "f.seek(max(0,size-n))" in shell_command
+    assert shell_command.endswith("/runs/case/service.log 1048576")
+    assert "cat " not in shell_command
+    assert calls[0][1]["timeout"] == 30
+
+
+def test_remote_read_keeps_terminal_receipts_exact(monkeypatch):
+    calls = []
+
+    def run(command, **kwargs):
+        calls.append((command, kwargs))
+        return SimpleNamespace(returncode=0, stdout='{"complete":true}')
+
+    monkeypatch.setattr(campaign.subprocess, "run", run)
+
+    assert cluster().read("worker", "/runs/receipt.json") == '{"complete":true}'
+    assert "Path(sys.argv[1]).read_bytes()" in calls[0][0][-1]
+
+
+def test_remote_read_rejects_non_positive_tail_size():
+    with pytest.raises(ValueError, match="max_bytes must be positive"):
+        cluster().read("worker", "/runs/case/service.log", max_bytes=0)
+
+
+def test_remote_read_preserves_timeout_retries(monkeypatch):
+    attempts = []
+
+    def run(*_args, **_kwargs):
+        attempts.append(1)
+        if len(attempts) == 1:
+            raise subprocess.TimeoutExpired("kubectl", 7)
+        return SimpleNamespace(returncode=0, stdout="receipt")
+
+    monkeypatch.setattr(campaign.subprocess, "run", run)
+    monkeypatch.setattr(campaign.time, "sleep", lambda _seconds: None)
+
+    assert cluster().read("worker", "/runs/receipt.json", timeout=7, attempts=2) == "receipt"
+    assert len(attempts) == 2

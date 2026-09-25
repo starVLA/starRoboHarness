@@ -1,9 +1,9 @@
 # Architecture
 
-StarRoboHarness is not a unified model and does not replace a policy. It is the
-execution and evaluation harness for reasoning-driven robotics that separates a
-learned policy's proposal from the authority to execute it. The runtime owns
-five boundaries:
+starRoboHarness is not a unified model and does not replace a policy. It is the
+Robot-as-Policy execution and evaluation harness that separates a learned
+policy's proposal from the authority to execute it. The runtime owns five
+boundaries:
 
 1. **Observation** — `EnvironmentAdapter` returns an exact post-action state
    and native termination information.
@@ -26,9 +26,9 @@ observation ──▶ policy proposal ──▶ outcome/intent review
 
 ## Dependency rule
 
-`src/starroboharness` must not import StarVLA, OpenPI, RoboDojo, Isaac Sim, a model
+`src/starharness` must not import StarVLA, OpenPI, RoboDojo, Isaac Sim, a model
 provider SDK, or a cluster scheduler. Those systems live behind adapters or in
-separate processes. This keeps `pip install star-robo-harness` lightweight and makes
+separate processes. This keeps `pip install star-harness` lightweight and makes
 the same control loop usable for VLA, WAM, diffusion, and classical policies.
 
 ## Identity and freshness

@@ -1,14 +1,14 @@
 # Changelog
 
-All notable project changes are recorded here. StarRoboHarness uses development
+All notable project changes are recorded here. starRoboHarness uses development
 pre-releases until the native evaluation protocol and public adapter APIs are
 stable.
 
 ## Unreleased
 
-- Rebranded the public runtime as StarRoboHarness, with `starroboharness` as the Python
-  package and `starroboharness.core` as the model-neutral public contract surface.
-- Rewrote the README and project vision around reasoning-driven robotics,
+- Rebranded the public runtime as starRoboHarness, with `starharness` as the Python
+  package and `starharness.core` as the model-neutral public contract surface.
+- Rewrote the README and project vision around Robot-as-Policy execution,
   reasoner supervision/direct control, skills, traceability, and evaluation.
 - Preserved frozen panel schemas and historical UnityPolicy paths where changing
   them would invalidate existing experiment identities.

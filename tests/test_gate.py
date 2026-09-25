@@ -2,8 +2,8 @@ import math
 
 import pytest
 
-from starroboharness.contracts import ContractError
-from starroboharness.gate import validate_decision
+from starharness.contracts import ContractError
+from starharness.gate import validate_decision
 
 
 def assessment(execution="progressing", intent="aligned"):

@@ -30,7 +30,7 @@ def classify_provider_failure(root: Path) -> dict:
                 "type": error.get("type"),
             })
     return {
-        "schema": "starroboharness.provider_failure.v1",
+        "schema": "starharness.provider_failure.v1",
         "root": str(root.resolve()),
         "recoverable_provider_failure": bool(evidence),
         "evidence": evidence,

@@ -4,8 +4,7 @@ import pytest
 
 pytest.importorskip("hybrid_rollout.robodojo.robodojo_server.client")
 from hybrid_rollout.robodojo.robodojo_server.gpt_only_client import GPTOnlyTools
-
-from starroboharness.rollout.persistent_tools import DirectTools, QwenPITools
+from starharness.rollout.persistent_tools import DirectTools, QwenPITools
 
 
 class RPC:
@@ -66,7 +65,7 @@ def test_start_records_actual_method_and_never_openpi(tmp_path, direct):
 
 
 def test_episode_uses_layout_reset_seed_not_eval_seed(tmp_path, monkeypatch):
-    from starroboharness.rollout import persistent_episode as module
+    from starharness.rollout import persistent_episode as module
 
     class Worker:
         prompt_sha256 = "test"

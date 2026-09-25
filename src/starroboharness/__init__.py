@@ -1,17 +1,17 @@
-"""Public contracts for auditable, reasoning-driven robot execution."""
+"""Compatibility namespace for earlier public starRoboHarness installations."""
 
-from .adapters.base import EnvironmentAdapter, PolicyAdapter, ReasonerAdapter
-from .contracts import Observation, Proposal
-from .gate import validate_decision
-from .trace import ChainedJsonlTrace
+import sys
 
-__all__ = [
-    "ChainedJsonlTrace",
-    "EnvironmentAdapter",
-    "Observation",
-    "PolicyAdapter",
-    "Proposal",
-    "ReasonerAdapter",
-    "validate_decision",
-]
-__version__ = "0.1.0"
+import starharness as _implementation
+
+__path__ = _implementation.__path__
+__all__ = _implementation.__all__
+__version__ = _implementation.__version__
+
+for _name in __all__:
+    globals()[_name] = getattr(_implementation, _name)
+
+# Share the already loaded contracts so mixed imports preserve type identity.
+for _name, _module in list(sys.modules.items()):
+    if _name.startswith("starharness."):
+        sys.modules[__name__ + _name[len("starharness"):]] = _module

@@ -2,7 +2,7 @@ import json
 from collections import Counter
 from pathlib import Path
 
-from starroboharness.evaluation import panel_digest, summarize
+from starharness.evaluation import panel_digest, summarize
 
 
 def test_five_task_panel_is_frozen_and_empty_report_is_pending():

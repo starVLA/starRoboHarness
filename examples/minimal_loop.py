@@ -6,7 +6,6 @@ import tempfile
 from pathlib import Path
 
 import numpy as np
-
 from starroboharness.contracts import Observation, Proposal
 from starroboharness.trace import ChainedJsonlTrace
 

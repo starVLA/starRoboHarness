@@ -3,10 +3,10 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from starroboharness.contracts import ContractError
-from starroboharness.gate import validate_direct_decision
-from starroboharness.rollout.campaign import validate_baseline_cadence
-from starroboharness.rollout.controller import Controller, method_profile
+from starharness.contracts import ContractError
+from starharness.gate import validate_direct_decision
+from starharness.rollout.campaign import validate_baseline_cadence
+from starharness.rollout.controller import Controller, method_profile
 
 
 class FakeSim:

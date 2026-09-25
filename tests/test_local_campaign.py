@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from starroboharness.rollout.local_campaign import (
+from starharness.rollout.local_campaign import (
     VENDORED_SOURCE,
     build_policy_process,
     build_sim_process,
@@ -100,11 +100,11 @@ def test_runtime_paths_resolve_from_repository_root(tmp_path):
             "policy_python": str(absolute),
             "unrelated": "unchanged",
         },
-        root=tmp_path / "StarRoboHarness",
+        root=tmp_path / "starRoboHarness",
     )
 
     assert resolved["checkpoint"] == str(
-        (tmp_path / "StarRoboHarness/models/checkpoint.pt").resolve()
+        (tmp_path / "starRoboHarness/models/checkpoint.pt").resolve()
     )
     assert resolved["robodojo_source"] == str((tmp_path / "RoboDojo").resolve())
     assert resolved["policy_python"] == str(absolute)

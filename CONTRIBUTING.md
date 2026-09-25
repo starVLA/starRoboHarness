@@ -1,6 +1,6 @@
 # Contributing
 
-StarRoboHarness welcomes policy, reasoner, environment, evaluation, and tooling
+starRoboHarness welcomes policy, reasoner, environment, evaluation, and tooling
 contributions. Keep the core package independent of heavyweight model and
 simulator runtimes.
 

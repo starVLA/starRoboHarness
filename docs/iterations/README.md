@@ -1,20 +1,22 @@
 # Collaborator start here
 
-StarRoboHarness is an alpha research codebase. Read these documents in order before
+starRoboHarness is an alpha research codebase. Read these documents in order before
 changing a policy adapter, reasoner backend, or evaluation protocol:
 
 The dated records below intentionally retain the historical `UnityPolicy`
 project name and paths. They are evidence of earlier releases, not current
-package identifiers; new code and public documentation use `StarRoboHarness`.
+package identifiers; new code and public documentation use `starRoboHarness`.
 
-1. [v0.1.0-alpha.2 publication record](2026-09-18-v0.1.0-alpha.2.md) — the
+1. [Dev three-case validation](2026-09-25-dev-three-case-validation.md) — the
+   latest receipt-verified dev result and handoff boundary.
+2. [v0.1.0-alpha.2 publication record](2026-09-18-v0.1.0-alpha.2.md) — the
    latest redacted results, usage budget, and evidence boundary.
-2. [v0.1.0-alpha.1 iteration record](2026-09-17-v0.1.0-alpha.1.md) — the
+3. [v0.1.0-alpha.1 iteration record](2026-09-17-v0.1.0-alpha.1.md) — the
    original implementation snapshot and its limitations.
-3. [Architecture](../architecture.md) — stable boundaries and ownership.
-4. [Evaluation protocol](../evaluation.md) — validity and comparison rules.
-5. [Live evaluation](../live-evaluation.md) — public runner contract.
-6. [Contributing](../../CONTRIBUTING.md) — setup, checks, adapters, and pull
+4. [Architecture](../architecture.md) — stable boundaries and ownership.
+5. [Evaluation protocol](../evaluation.md) — validity and comparison rules.
+6. [Live evaluation](../live-evaluation.md) — public runner contract.
+7. [Contributing](../../CONTRIBUTING.md) — setup, checks, adapters, and pull
    request expectations.
 
 ## Collaboration rules

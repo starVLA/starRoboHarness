@@ -2,8 +2,8 @@ import json
 
 import pytest
 
-from starroboharness.context import CONTEXT_VERSION, build_context, compact_eef_trajectory
-from starroboharness.contracts import ContractError
+from starharness.context import CONTEXT_VERSION, build_context, compact_eef_trajectory
+from starharness.contracts import ContractError
 
 
 def test_context_does_not_leak_reward_or_unbounded_history():

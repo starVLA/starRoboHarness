@@ -1,6 +1,6 @@
 import pytest
 
-from starroboharness.rollout.campaign import case_ports, cases_requiring_work, parallel_case_workers
+from starharness.rollout.campaign import case_ports, cases_requiring_work, parallel_case_workers
 
 
 def panel():

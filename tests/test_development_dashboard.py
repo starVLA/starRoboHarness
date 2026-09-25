@@ -1,7 +1,7 @@
 import json
 
-from starroboharness.rollout.development_dashboard import render
-from starroboharness.rollout.monitor import Reader
+from starharness.rollout.development_dashboard import render
+from starharness.rollout.monitor import Reader
 
 
 def _terminal(root, *, success, score, step_id):

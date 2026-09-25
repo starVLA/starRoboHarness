@@ -29,6 +29,27 @@ from .proposal_diagnostics import action_diagnostics
 ARMS = ('left', 'right')
 
 
+def recovery_watchdog_state(previous_streak, response, limit):
+    """Return advisory correction-loop telemetry without ending the episode.
+
+    RoboDojo's native horizon is the evaluation boundary.  A long correction
+    streak can still contain distinct, physically useful targets, so the host
+    records the threshold crossing for audit instead of treating it as an
+    infrastructure failure.
+    """
+    streak = previous_streak + 1 if response.get('mode') in ('edit', 'eef') else 0
+    return dict(
+        schema='starharness.recovery_watchdog.v2',
+        enforced=False,
+        exceeded=streak > limit,
+        reason=('advisory consecutive correction threshold exceeded'
+                if streak > limit else 'within advisory correction threshold'),
+        consecutive_corrections=streak,
+        max_consecutive_corrections=limit,
+        last_response=response,
+    )
+
+
 def validate_dual_response(response, request):
     if response.get('mode') in ('eef', 'edit'):
         field = 'target' if response['mode'] == 'eef' else 'edit'
@@ -79,13 +100,18 @@ class RoboDojoTools:
         return [{arm: bool(row[i*7+6] < .5) for i, arm in enumerate(ARMS)} for row in executed]
 
     def __init__(self, output, task, student, *, sim_port=19113, seed=0,
-                 max_decisions=180, prompt_sha256='', rpc_factory=RPCClient):
+                 max_decisions=180, prompt_sha256='', rpc_factory=RPCClient,
+                 max_consecutive_recoveries=8):
         self.output = Path(output).resolve()
         self.task, self.student = task, student
         self.sim_port, self.seed = sim_port, seed
         if max_decisions < 0:
             raise ValueError('max_decisions must be non-negative; 0 uses native termination only')
         self.max_decisions, self.prompt_sha256 = max_decisions, prompt_sha256
+        if max_consecutive_recoveries < 1:
+            raise ValueError('max_consecutive_recoveries must be positive')
+        self.max_consecutive_recoveries = int(max_consecutive_recoveries)
+        self.consecutive_recoveries = 0
         self.rpc_factory = rpc_factory
         self.sim = None
         self.episode = None
@@ -231,6 +257,14 @@ class RoboDojoTools:
             previous_observation=previous_observation(self.preceding, self.history[-1]) if self.history else None,
             previous_result=self.history[-1] if self.history else None,
             counters=dict(self.counters), **self.prediction)
+        self.request['recovery_watchdog'] = dict(
+            consecutive_corrections=self.consecutive_recoveries,
+            max_consecutive_corrections=self.max_consecutive_recoveries,
+            require_distinct_replan=self.consecutive_recoveries >= 3,
+            enforced=False,
+            policy=('advisory only; reobserve and do not repeat an unchanged correction target; '
+                    'native RoboDojo termination remains authoritative'),
+        )
         write_json(self.output/f'request_{decision:03d}.json', self.request)
         self.phase = 'execute'
         # The unchanged gate prompt is already in the persistent Codex workspace.
@@ -256,6 +290,13 @@ class RoboDojoTools:
                 'gate. Failed grasp attempts alone are not an episode termination. '
                 'Do not reset or fabricate progress; operator/transport/physics aborts '
                 'are handled separately by the runner.')
+        watchdog = recovery_watchdog_state(
+            self.consecutive_recoveries, response, self.max_consecutive_recoveries)
+        self.consecutive_recoveries = watchdog['consecutive_corrections']
+        if watchdog['exceeded']:
+            write_json(self.output/'recovery-watchdog.json', dict(
+                watchdog, step_id=self.tick,
+                history_path=str(self.output/'history.json')))
         decision = len(self.history)
         write_json(self.output/f'response_{decision:03d}.json', response)
         # RoboDojo persists every decision (including student/stop), not just
