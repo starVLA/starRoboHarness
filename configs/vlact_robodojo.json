@@ -1,0 +1,13 @@
+{
+  "schema": "starharness.vlact.robodojo.v1",
+  "model_id": "StarVLA/VLAct-Qwen3VL4B-OFT-RoboDojo",
+  "benchmark": "RoboDojo",
+  "robot_adapter": "dual_arx_x5",
+  "cameras": ["cam_high", "cam_left_wrist", "cam_right_wrist"],
+  "image_size": [224, 224],
+  "state_shape": [1, 14],
+  "action_shape": [50, 14],
+  "execute_horizon": 16,
+  "unnorm_key": "arx_x5",
+  "gripper_indices": [6, 13]
+}

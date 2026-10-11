@@ -1,0 +1,11 @@
+{
+  "schema": "starharness.additional_benchmarks.public.v1",
+  "benchmarks": {
+    "robotwin_2": {"display_name": "RoboTwin 2.0", "status": "development"},
+    "libero_pro": {"display_name": "LIBERO-Pro", "status": "development"},
+    "robocasa_365": {"display_name": "RoboCasa 365", "status": "development"},
+    "behavior": {"display_name": "BEHAVIOR", "status": "separate_vlact_contract"},
+    "simplerenv": {"display_name": "SimplerEnv", "status": "separate_vlact_contract"}
+  },
+  "score_policy": "native_receipt_only"
+}

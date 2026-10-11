@@ -6,17 +6,48 @@ __pycache__/
 build/
 dist/
 *.egg-info/
-exps/
+
+# Local experiment and simulator state
 artifacts/
+outputs/
+runs/
 local/
+appdata/
+/exps/build/
+/exps/build_release/
+/exps/cluster_benchmarks/
+/exps/experiments/
+/exps/exps/
+/exps/website/
+/exps/*.aux
+/exps/*.log
+/exps/*.out
+/exps/*.pdf.release
+
+# Credentials, checkpoints, datasets, and raw media
 .env
 .env.*
 !.env.example
+*.pem
+*.key
 *.mp4
 *.npz
 *.pt
+*.pth
 *.safetensors
-
+*.ckpt
 datasets/
-!website/dist/
-!website/dist/**
+checkpoints/
+
+# Local services and generated dashboard state
+UI/state.json
+UI/.state/
+*.log
+*.tmp
+*.swp
+
+# Private evidence and machine-local metadata
+.google_docs/
+private/
+*.token
+*credentials*

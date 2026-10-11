@@ -1,4 +1,4 @@
-"""CVM controller: Codex owns decisions; native RoboDojo owns physics/outcomes."""
+"""Single execution controller for accepted actions and native outcomes."""
 
 from __future__ import annotations
 

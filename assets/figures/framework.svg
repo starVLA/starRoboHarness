@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1478" height="844" viewBox="0 0 1478 844">
+<defs>
+ <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0 L12 6 L0 12 Z" fill="#68798a"/></marker>
+ <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#172b3a" flood-opacity=".12"/></filter>
+ <style>
+  .title{font-family:Arial,sans-serif;font-weight:700;fill:#1d2b3a}.sub{font-family:Arial,sans-serif;font-weight:400;fill:#5a6a79}.head{font-family:Arial,sans-serif;font-weight:700;fill:#1d2b3a}.body{font-family:Arial,sans-serif;font-weight:400;fill:#5a6a79}.small{font-family:Arial,sans-serif;font-weight:400;fill:#5a6a79}.box{stroke-width:2}
+ </style>
+</defs>
+<rect width="1478" height="844" fill="#ffffff"/>
+<text x="34" y="42" class="title" font-size="27">starRoboHarness</text>
+<text x="34" y="69" class="sub" font-size="16">A shared execution contract for policy, reasoning, and tool-based robot control</text>
+<rect x="34" y="91" width="1410" height="103" rx="12" fill="#f3f7fa" stroke="#b9c9d5" class="box"/>
+<text x="57" y="120" class="head" font-size="16">TASK AND WORLD STATE</text>
+<g filter="url(#shadow)">
+ <rect x="57" y="137" width="298" height="39" rx="7" fill="#dceaf2" stroke="#8294a2" class="box"/><rect x="388" y="137" width="298" height="39" rx="7" fill="#dceaf2" stroke="#8294a2" class="box"/><rect x="719" y="137" width="298" height="39" rx="7" fill="#dceaf2" stroke="#8294a2" class="box"/><rect x="1050" y="137" width="350" height="39" rx="7" fill="#dceaf2" stroke="#8294a2" class="box"/>
+</g>
+<text x="206" y="163" class="head" font-size="17" text-anchor="middle">Task</text><text x="537" y="163" class="head" font-size="17" text-anchor="middle">Observation</text><text x="868" y="163" class="head" font-size="17" text-anchor="middle">Robot state</text><text x="1225" y="163" class="head" font-size="17" text-anchor="middle">Action constraints</text>
+<text x="34" y="231" class="head" font-size="16">METHOD PROFILES</text>
+<g filter="url(#shadow)">
+ <rect x="34" y="248" width="430" height="73" rx="10" fill="#f7f8f9" stroke="#8294a2" class="box"/><rect x="524" y="248" width="430" height="73" rx="10" fill="#f7f8f9" stroke="#8294a2" class="box"/><rect x="1014" y="248" width="430" height="73" rx="10" fill="#f7f8f9" stroke="#8294a2" class="box"/>
+</g>
+<text x="249" y="278" class="head" font-size="20" text-anchor="middle">Direct reasoner</text><text x="249" y="301" class="body" font-size="14" text-anchor="middle">reasoner proposes actions</text>
+<text x="739" y="278" class="head" font-size="20" text-anchor="middle">Reasoner + policy</text><text x="739" y="301" class="body" font-size="14" text-anchor="middle">reasoner reviews policy proposals</text>
+<text x="1229" y="278" class="head" font-size="20" text-anchor="middle">Policy only</text><text x="1229" y="301" class="body" font-size="14" text-anchor="middle">policy executes fixed prefixes</text>
+<path d="M249 321 V345 M739 321 V345 M1229 321 V345" stroke="#68798a" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="34" y="347" width="1410" height="150" rx="12" fill="#e7f0f5" stroke="#8294a2" class="box"/>
+<text x="58" y="377" class="head" font-size="17">SHARED EXECUTION HARNESS</text>
+<g filter="url(#shadow)">
+ <rect x="58" y="397" width="411" height="73" rx="9" fill="#ffffff" stroke="#8294a2" class="box"/><rect x="533" y="397" width="411" height="73" rx="9" fill="#fff8e9" stroke="#c39b5a" class="box"/><rect x="1008" y="397" width="411" height="73" rx="9" fill="#ffffff" stroke="#8294a2" class="box"/>
+</g>
+<text x="263" y="427" class="head" font-size="19" text-anchor="middle">Observation and proposal</text><text x="263" y="451" class="body" font-size="14" text-anchor="middle">identity, freshness, action contract</text>
+<text x="738" y="427" class="head" font-size="19" text-anchor="middle">Evidence gate and decision</text><text x="738" y="451" class="body" font-size="14" text-anchor="middle">accept, correct, or reject within bounds</text>
+<text x="1213" y="427" class="head" font-size="19" text-anchor="middle">Guarded execution</text><text x="1213" y="451" class="body" font-size="14" text-anchor="middle">one controller records acknowledgements</text>
+<path d="M469 433 H521 M944 433 H996" stroke="#68798a" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<path d="M739 497 V524" stroke="#68798a" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<g filter="url(#shadow)"><rect x="34" y="530" width="895" height="70" rx="10" fill="#f7f8f9" stroke="#8294a2" class="box"/><rect x="952" y="530" width="492" height="70" rx="10" fill="#f7f8f9" stroke="#8294a2" class="box"/></g>
+<text x="481" y="561" class="head" font-size="20" text-anchor="middle">Environment and robot adapters</text><text x="481" y="583" class="body" font-size="14" text-anchor="middle">benchmark-specific action interface and native evaluator</text>
+<text x="1198" y="561" class="head" font-size="20" text-anchor="middle">Trace and native receipt</text><text x="1198" y="583" class="body" font-size="14" text-anchor="middle">decisions, ACKs, usage, outcome</text>
+<path d="M929 565 H944" stroke="#68798a" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="34" y="646" class="head" font-size="16">COMMUNITY EXTENSION PATH</text>
+<g filter="url(#shadow)">
+ <rect x="34" y="662" width="336" height="54" rx="8" fill="#eef5ee" stroke="#78977d" class="box"/><rect x="392" y="662" width="336" height="54" rx="8" fill="#eef5f7" stroke="#6c9eae" class="box"/><rect x="750" y="662" width="336" height="54" rx="8" fill="#fff8e9" stroke="#c39b5a" class="box"/><rect x="1108" y="662" width="336" height="54" rx="8" fill="#f7eeee" stroke="#ad7e86" class="box"/>
+</g>
+<text x="202" y="695" class="head" font-size="16" text-anchor="middle">Reusable context and traces</text><text x="560" y="695" class="head" font-size="16" text-anchor="middle">New policy and tool adapters</text><text x="918" y="695" class="head" font-size="16" text-anchor="middle">Audited failure and recovery rules</text><text x="1276" y="695" class="head" font-size="16" text-anchor="middle">Physical validation (future)</text>
+<path d="M481 600 V631 M1198 600 V631" stroke="#68798a" stroke-width="2.5" fill="none" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+<text x="34" y="775" class="small" font-size="14">Current study: policy-only, supervised policy, and direct-reasoner profiles on RoboDojo, with portability checks on BEHAVIOR and SimplerEnv.</text>
+<text x="34" y="801" class="small" font-size="14">The extension path is an engineering interface. It is not a measured claim of autonomous self-improvement or physical safety.</text>
+</svg>

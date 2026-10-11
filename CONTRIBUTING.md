@@ -1,8 +1,6 @@
-# Contributing
+# Contributing to starRoboHarness
 
-starRoboHarness welcomes policy, reasoner, environment, evaluation, and tooling
-contributions. Keep the core package independent of heavyweight model and
-simulator runtimes.
+Thank you for improving starRoboHarness. Contributions may add policy adapters, reasoner transports, simulator integrations, evaluation protocols, diagnostics, dashboard features, documentation, or paper assets.
 
 ## Development setup
 
@@ -13,43 +11,27 @@ pytest -q
 python scripts/smoke_contracts.py
 ```
 
-Use a feature branch and keep commits focused. Do not commit credentials,
-checkpoints, datasets, videos, trajectory arrays, or local environment paths
-outside documented examples.
+Use a focused branch and a small commit. Keep the core package independent of heavyweight model and simulator runtimes. New integrations belong behind adapters and must include a dry-run or fake-backend test.
+
+## Pull request checklist
+
+- Explain the contract or user-facing behavior that changed.
+- State the affected simulator, policy, reasoner, or benchmark split.
+- Add tests for observable invariants and failure handling.
+- Record protocol version, seed, checkpoint identity, commit, denominator, and evidence path for evaluation changes.
+- Keep credentials, absolute cluster paths, checkpoints, datasets, raw trajectories, and provider transcripts out of Git.
+- Update the relevant documentation, `NEWS.md`, and release notes when behavior or layout changes.
 
 ## Adapter checklist
 
-A policy adapter must document and test:
+A policy adapter documents observation keys, camera order, state dimensions, preprocessing, action units, coordinate frame, normalization ownership, checkpoint compatibility, prediction horizon, gripper semantics, proposal freshness, and malformed-input behavior.
 
-- observation fields, camera names/order, state dimensions, and preprocessing;
-- executable action space, dimensions, units, coordinate frame, and ordering;
-- normalization ownership and checkpoint compatibility;
-- prediction horizon versus maximum executed prefix;
-- gripper semantics;
-- proposal identity and freshness;
-- explicit failures for malformed or unsupported inputs.
+An environment adapter keeps native success, partial score, timeout, infrastructure failure, operator stop, and budget stop distinct. It exposes one authoritative control connection per episode and records actual acknowledgements.
 
-An environment adapter must keep native success, partial score, timeout,
-infrastructure failure, and operator/budget stop distinct. It must expose one
-authoritative control connection per episode and record actual acknowledgements.
+## Experiments and paper assets
 
-## Experiments
+Put small machine-readable manifests and concise interpretations under `docs/experiments/`. Put LaTeX and editable figure sources under `exps/`; put release-safe copies under `assets/`. State the hypothesis before the result. Do not tune on the final panel. Do not present a smoke run as a benchmark result.
 
-Put small, machine-readable manifests and a concise interpretation in
-`docs/experiments/`. State the hypothesis before the result. Record commits,
-checkpoint identity, case manifest, seeds, protocol, exclusions, and artifact
-locations. Do not present a smoke run as a benchmark result or compare metrics
-from different protocols without an explicit caveat.
+## Security and public release
 
-## Skills
-
-Keep `SKILL.md` focused on decisions that change online behavior. Put detailed
-robot or policy contracts in `references/` and link them from the entrypoint.
-Never add benchmark answers, object truth, reward access, or case-specific
-action scripts to a skill.
-
-## Pull requests
-
-Every pull request should explain the contract being changed, include tests for
-observable invariants, and identify compatibility or evaluation impact. Run
-the full local checks before requesting review.
+Read [`docs/public_release.md`](docs/public_release.md) before contributing to the public repository. The private evidence repository and ModelScope backup may contain operational data that must never be copied into a public branch.

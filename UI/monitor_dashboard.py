@@ -225,9 +225,8 @@ def result_table(panel: dict, outcomes: list):
 
 
 def gpt_decision_timeline(root: Path, limit=None):
-    # Simulator receipts live on the AWS pod's local FSx view.  The controller
-    # mirrors every decision into its local supervisor log, which is the
-    # authoritative read-only source available to this CVM dashboard.
+    # The controller mirrors every decision into its local supervisor log,
+    # which is the authoritative read-only source for this dashboard.
     log_path = root.parent / f"{root.name}-supervisor" / "campaign.log"
     timeline = []
     try:

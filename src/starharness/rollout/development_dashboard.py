@@ -107,7 +107,7 @@ def render(entries, formal_root, formal_planned, reader):
         "",
         f"FORMAL FIVE-TASK CAMPAIGN: {_formal_status(formal_root, formal_planned, reader)}",
         f"Formal output: {formal_root}",
-        "Development report: docs/iterations/2026-09-18-v0.1.0-alpha.2.md",
+        "Development report: docs/benchmark_results.md",
         "Refresh: 5s | detach: Ctrl-b then d | choose windows: Ctrl-b then w",
     ]
     if reader.warnings:
